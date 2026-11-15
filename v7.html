@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CENGKUDU OS - Pulang Ke Masa Depan</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#3d4429;color:#2a2a1a;padding-bottom:90px}
+#splash{position:fixed;inset:0;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999}
+#splash h1{font-size:32px;letter-spacing:3px}
+#splash p{color:#d4af37;letter-spacing:2px;margin-top:8px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px}
+.logo{width:52px;height:52px;border-radius:50%;background:#d4af37;display:flex;align-items:center;justify-content:center;font-size:24px}
+.top h2{color:#fff;font-size:22px}
+.top p{color:#d4af37;font-size:11px;letter-spacing:2px}
+.card{background:#fdfbf3;margin:12px;border-radius:22px;padding:18px}
+.harvest h1{font-size:44px;margin:6px 0}
+.btn-voice{width:100%;background:#d9b64a;border:none;padding:18px;border-radius:16px;font-size:20px;font-weight:900;margin-top:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+.grid3 button{background:#fff;border:2px solid #5a6234;border-radius:16px;padding:16px 6px;font-weight:800}
+.wa{display:block;background:#25D366;color:#fff;text-align:center;padding:14px;border-radius:12px;text-decoration:none;font-weight:900;margin-top:12px}
+.bottom{position:fixed;bottom:12px;left:12px;right:12px;background:#3d4429;border-radius:20px;display:grid;grid-template-columns:repeat(4,1fr);padding:10px 0;color:#fff;text-align:center}
+</style>
+</head>
+<body>
+  <div id="splash"><h1>MUSE SPARK</h1><p>CENGKUDU OS • 800 MDPL</p><small>BUILT WITH MUSE SPARK</small></div>
+<div class="top"><div style="display:flex;gap:10px;align-items:center"><div class="logo">☕</div><div><h2>CENGKUDU OS</h2><p>PULANG KE MASA DEPAN</p></div></div><div>👤</div></div>
+<div class="card"><h3>🍃 Harvest Today</h3><h1 id="kgToday">7 KG</h1><p><b>Blok C — Bawah — Dekat Kali</b></p><p style="margin-top:10px">🎙️ Voice to Data • Javanese</p><p>✓ Synced • Offline Ready</p><button class="btn-voice" onclick="rekam()">🎙️ REKAM PANEN SUARA</button><div class="grid3"><button onclick="openSheet('panen')">🍃<br>PANEN</button><button onclick="openSheet('jemur')">☀️<br>JEMUR</button><button onclick="openSheet('jual')">🛒<br>JUAL</button></div></div>
+<div class="card"><h3>Live Process Timeline</h3><p>● PANEN • selesai<br>07:12 WIB • <span id="kgTime">7 KG</span></p><p style="margin-top:8px">● FERMENTASI • aktif<br>09:30 WIB • pH 4.2 • 28°C</p><p style="margin-top:8px">○ JEMUR • antri<br>Target: Natural 21D • Robusta Only</p></div>
+<div class="card"><h3>☕ Cengkudu Coffee - Motorcycle Bag</h3><p>Robusta Only • 800 MDPL • Natural 21D • 250g</p><p style="margin-top:8px"><b>Rp 65.000 / 250g</b> • Stok: 12 bag</p><p style="font-size:13px;margin-top:6px">ID Lacak: CC-RTA-2026-007 • CC-DNA-001<br>122 Farmers • 18HA • Cirahab, Banyumas</p><a class="wa" href="https://wa.me/6280000000000?text=Halo%20Cengkudu%20mau%20pesan%20kopi">PESAN VIA WHATSAPP</a></div>
+<div style="text-align:center;color:#ddd;font-size:11px;padding:8px">Blockchain Verified • CC-RTA-2026-007 • OFFLINE-FIRST<br>Supriyanto • Cirahab • Banyumas • Built From 0 Rupiah</div>
+<div class="bottom"><div>🏠<br>HOME</div><div>🍃<br>PANEN</div><div>🛒<br>JUAL</div><div>👤<br>SAYA</div></div>
+<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100"><div style="background:#fff;padding:20px;border-radius:20px;margin:60px 16px"><button onclick="closeSheet()">X Tutup</button><div id="sheetContent"></div></div></div>
+<script>
+setTimeout(()=>{document.getElementById('splash').style.display='none'},2000);
+let totalKg=7;
+function rekam(){let v=prompt("Panen hari ini berapa KG?");if(!v)return;totalKg=v;document.getElementById('kgToday').innerText=v+" KG";document.getElementById('kgTime').innerText=v+" KG";alert("Tersimpan! "+v+" KG");}
+function openSheet(t){let h="";if(t=='panen')h="<h2>🍃 Catat Panen</h2><p>Blok C</p><input id='inKg' value='"+totalKg+"' style='width:100%;padding:12px'><button class='btn-voice' onclick='simpanPanen()'>SIMPAN</button>";if(t=='jemur')h="<h2>☀️ Jemur</h2><p>FERMENTASI AKTIF<br>pH 4.2 • 28°C • Natural 21D</p>";if(t=='jual')h="<h2>🛒 Jual Kopi</h2><p>250g - Rp 65.000</p><a class='wa' href='https://wa.me/6280000000000'>BELI VIA WA</a>";document.getElementById('sheetContent').innerHTML=h;document.getElementById('modal').style.display='block';}
+function simpanPanen(){totalKg=document.getElementById('inKg').value;document.getElementById('kgToday').innerText=totalKg+" KG";document.getElementById('kgTime').innerText=totalKg+" KG";closeSheet();}
+function closeSheet(){document.getElementById('modal').style.display='none';}
+</script>
+</body>
+</html>
