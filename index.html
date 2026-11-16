@@ -17,12 +17,13 @@ h1{font-size:48px;line-height:.95;margin:12px 0}.gold{background:linear-gradient
 .wide{margin:14px 16px;background:#141414;border:1px solid #2a2a2a;border-radius:16px;padding:14px;font-size:13px;color:#ccc}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;font-size:12px}
 .nav div{text-align:center;cursor:pointer}.nav .on{color:#f5d67b;font-weight:900}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end}.modal.open{display:flex}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;z-index:99}.modal.open{display:flex}
 .box{background:#1a1a1a;width:100%;border-radius:22px 22px 0 0;padding:16px;max-height:85vh;overflow:auto}
 .apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.app{background:#2a2a2a;border-radius:14px;padding:12px 4px;text-align:center;font-size:12px;cursor:pointer}
 .close{background:linear-gradient(90deg,#f5d67b,#fff0b0);color:#111;border:none;width:100%;padding:14px;border-radius:999px;font-weight:900;margin-top:14px}
 input{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#fff;margin:6px 0}
-.qrbox img{width:100%;border-radius:14px;margin-top:10px}
+.mic{width:90px;height:90px;background:#ff3b30;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;margin:16px auto}
+.hasil{background:#2a2a2a;border-radius:12px;padding:12px;margin:10px 0;font-size:13px;line-height:1.5}
 </style></head><body>
 <div class="top"><div class="logo">CENGKUDU<span>-OS</span> <small style="background:#f5d67b;color:#111;padding:3px 7px;border-radius:8px;font-size:11px">v9.4</small></div><div class="badge">● Online • Synced</div></div>
 <div class="hero"><div class="small">CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</div>
@@ -31,4 +32,39 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #444;backgroun
 <div class="btnrow"><div class="btn btn-gold" onclick="openApps()">LIHAT 20 APP</div><div class="btn btn-dark" onclick="wa()">BELI KOPI - WA</div></div></div>
 <div class="grid">
 <div class="card" onclick="needCode('PANEN')"><small>🌱 Harvest Today</small><div class="big">7 <i>KG</i></div><p>Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
-<div class="card" onclick="needCode('PANEN')"><small>☕ Total Panen</small><div class="big">21,210 <i>Kg</i></div><p
+<div class="card" onclick="needCode('PANEN')"><small>☕ Total Panen</small><div class="big">21,210 <i>Kg</i></div><p>CC-BTA-2026-001 • Synced<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
+<div class="card" onclick="needCode('PETANI')"><small>👨‍🌾 Farmers</small><div class="big">122 <i>Farmers</i></div><p>Banyumas • 800 Mdpl<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
+<div class="card" onclick="needCode('PANEN')"><small>📦 Blok BE</small><div class="big">5 <i>Kg</i></div><p>Sektor 3 • Ready<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
+</div>
+<div class="wide">📈 Panen Hari Ini • 320 Kg • QR Scan Batch • 12 Ready<br><br>
+<b>KODE PANEN:</b> <span id="kodePanen">Belum diisi</span><br><b>KODE PETANI:</b> <span id="kodePetani">Belum diisi</span><br><br>
+<input id="inPanen" placeholder="Kode Panen, misal CC-BTA-2026-001">
+<input id="inPetani" placeholder="Kode Petani, misal SUPRIYANTO-001">
+<button class="close" onclick="saveKode()">SIMPAN KODE - BUKA SEMUA</button>
+</div>
+<div class="nav"><div class="on" onclick="location.reload()">🏠<br>Dashboard</div><div onclick="openApps()">📊<br>20 App</div><div onclick="needCode('PETANI')">👨‍🌾<br>Petani</div></div>
+<div class="modal" id="modal"><div class="box"><h2>📺 20 APP - Pilih Channel</h2><p style="color:#aaa;font-size:13px">2 Jagoan ada ⭐. Yang lain contoh dulu. Yang Jualan (Harga/Jual/WA) tetep ke WA.</p><div class="apps" id="apps"></div><button class="close" onclick="closeApps()">TUTUP →</button></div></div>
+<div class="modal" id="modal2"><div class="box"><div id="mc"></div><button class="close" onclick="closeM2()">TUTUP →</button></div></div>
+<script>
+const list=["🎤 Voice Panen ⭐ JAGOAN","📊 Dashboard","📦 Batch QR","🌦️ Cuaca","🌱 Blok Kebun","👨‍🌾 Petani","💰 Harga Kopi","🛒 Jual Kopi","📝 Laporan","📈 Analitik","🔥 Roasting","☀️ Jemur","🧪 Fermentasi","📴 Offline Mode","🗺️ Peta Blok","💬 WA Order","🏆 Leaderboard","📚 Edukasi ⭐ JAGOAN","⚙️ Setting","ℹ️ Tentang"];
+document.getElementById('apps').innerHTML=list.map(x=>`<div class="app" onclick="openApp('${x}')">${x}</div>`).join('');
+function openApps(){document.getElementById('modal').classList.add('open')}
+function closeApps(){document.getElementById('modal').classList.remove('open')}
+function wa(){window.open('https://wa.me/6289600000000?text=Halo Cengkudu, mau beli kopi','_blank')}
+function openM(h){document.getElementById('mc').innerHTML=h;document.getElementById('modal2').classList.add('open')}
+function closeM2(){document.getElementById('modal2').classList.remove('open')}
+function needCode(t){let k=localStorage.getItem(t==='PANEN'?'kodePanen':'kodePetani'); if(!k){alert('Isi dulu '+(t==='PANEN'?'KODE PANEN':'KODE PETANI')+' di bawah, biar kebuka, gak blank.'); window.scrollTo(0,document.body.scrollHeight);}else{openM('<h2>'+t+' kebuka: '+k+'</h2><p>Harvest 7 KG, Total 21,210 Kg, 122 Farmers - sudah tersambung.</p>');}}
+function saveKode(){let p=document.getElementById('inPanen').value.trim(); let t=document.getElementById('inPetani').value.trim(); if(p){localStorage.setItem('kodePanen',p); document.getElementById('kodePanen').innerText=p;} if(t){localStorage.setItem('kodePetani',t); document.getElementById('kodePetani').innerText=t;} if(!p&&!t){alert('Isi dulu salah satu kode, Jendral.');return;} alert('Kode kesimpen! Sekarang pencet lagi kartunya, udah kebuka semua, gak blank.');}
+function openApp(n){
+  if(n.includes('Harga')||n.includes('Jual')||n.includes('WA')){wa();return;}
+  if(n.includes('Voice')){
+    openM('<h2>🎤 Voice Panen - AI Voice Note</h2><p style="color:#aaa">Pencet mic, ngomong \'Panen 7 kilo Blok C\', jadi data.</p><div class="mic">🎤</div><div class="hasil">✅ <b>Hasil AI: Panen 7 KG, Blok C, Bawah • Tersimpan!</b></div><div class="hasil">✅ Contoh AI: "Panen 7 KG, Blok C, Bawah" → Tersimpan</div>');
+  } else if(n.includes('Edukasi')){
+    openM('<h2>📚 Edukasi ⭐ JAGOAN</h2><p>1. Panen cherry merah saja.<br>2. Fermentasi 24 jam.<br>3. Jemur sampai 11% kadar air.<br><br>Dari kebun 800 mdpl, untuk dunia.</p>');
+  } else {
+    openM('<h2>'+n+'</h2><p>Kebuka. Kalau masih blank, isi dulu Kode Panen / Kode Petani di bawah.</p>');
+  }
+  closeApps();
+}
+let sp=localStorage.getItem('kodePanen'); let st=localStorage.getItem('kodePetani'); if(sp) document.getElementById('kodePanen').innerText=sp; if(st) document.getElementById('kodePetani').innerText=st;
+</script></body></html>
