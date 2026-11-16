@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CENGKUDU-OS v10</title>
+<title>CENGKUDU-OS v11</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0a0a0a;color:#fff;font-family:system-ui,Arial}
 .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
@@ -11,43 +11,65 @@
 .card{background:#151515;border-radius:18px;padding:16px}.card b{font-size:28px;color:#2dd4bf}.card span{color:#888;font-size:13px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#111;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #222}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center;z-index:99}
-.modal.open{display:flex}.box{background:#1a1a1a;width:100%;max-width:520px;border-radius:24px 24px 0 0;padding:20px}
+.modal.open{display:flex}.box{background:#1a1a1a;width:100%;max-width:520px;border-radius:24px 24px 0 0;padding:20px;max-height:90vh;overflow:auto}
 .mic{width:110px;height:110px;border-radius:50%;background:#ff2d2d;display:flex;align-items:center;justify-content:center;font-size:54px;margin:14px auto;cursor:pointer}
+.mic.rec{background:#22c55e;animation:pulse 1s infinite}@keyframes pulse{50%{transform:scale(1.1)}}
 .info{background:#222;border-radius:12px;padding:14px;margin:12px 0}
 .close{width:100%;padding:15px;border-radius:999px;background:#f5c86e;border:0;font-weight:800;font-size:16px}
 .x{float:right;background:#333;color:#fff;border:0;width:36px;height:36px;border-radius:50%;font-size:18px}
+.small{padding:10px 14px;border-radius:999px;border:1px solid #444;background:#222;color:#fff;font-weight:700}
 </style></head>
 <body>
-<div class="top"><b>CENGKUDU-OS <span class="badge">v10</span></b><span style="color:#4ade80">● Online • Synced</span></div>
+<div class="top"><b>CENGKUDU-OS <span class="badge">v11</span></b><span style="color:#4ade80">● Online • Synced</span></div>
 <div class="hero"><div style="color:#f5c86e;letter-spacing:2px;font-size:12px">CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</div>
 <h1>PULANG KE<br>MASA DEPAN</h1>
-<p style="color:#aaa">An Offline-First OS for Coffee Farmers.<br><b style="color:#fff">Voice to Data. Harvest to Market. Farm to Future.</b><br>Dari kebun 800 mdpl, untuk dunia.</p>
-<button class="btn gold" onclick="showApps()">LIHAT 20 APP</button> <button class="btn dark">BELI KOPI - WA</button></div>
+<p style="color:#aaa">Voice to Data. Harvest to Market.<br><b style="color:#fff">Ngomong jadi angka. Angka jadi duit.</b></p>
+<button class="btn gold" onclick="openVoice()">🎤 PANEN PAKAI SUARA</button> <button class="btn dark" onclick="resetAll()">↺ RESET AWAL</button></div>
 <div class="grid">
-<div class="card" onclick="openVoice()">🌱 <span>Harvest Today</span><br><b>7 KG</b><br><span>Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese<br>👉 Pencet untuk Lihat Isi</span></div>
-<div class="card">☕ <span>Total Panen</span><br><b>21,210 Kg</b><br><span>CC-BTA-2026-001 • Synced<br>👉 Pencet untuk Lihat Isi</span></div>
-<div class="card">👨‍🌾 <span>Farmers</span><br><b>122 Farmers</b><br><span>Banyumas • 800 Mdpl<br>👉 Pencet untuk Lihat Isi</span></div>
-<div class="card">📦 <span>Blok BE</span><br><b>5 Kg</b><br><span>Sektor 3 • Ready<br>👉 Pencet untuk Lihat Isi</span></div>
+<div class="card" onclick="openVoice()">🌱 <span>Harvest Today</span><br><b id="today">7 KG</b><br><span id="todayBlok">Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese</span></div>
+<div class="card">☕ <span>Total Panen</span><br><b id="total">21,210 Kg</b><br><span>CC-BTA-2026-001 • Synced</span></div>
+<div class="card">👨‍🌾 <span>Farmers</span><br><b>122 Farmers</b><br><span>Banyumas • 800 Mdpl</span></div>
+<div class="card">📦 <span>Blok BE</span><br><b>5 Kg</b><br><span>Sektor 3 • Ready</span></div>
 </div>
-<div style="padding:0 16px 80px;color:#888">📈 Panen Hari Ini • 320 Kg • QR Scan Batch • 12 Ready</div>
-<div class="nav"><span>🏠<br>Dashboard</span><span onclick="showApps()">📊<br>20 App</span><span>👨‍🌾<br>Petani</span></div>
+<div style="padding:0 16px 80px;color:#888">📋 Riwayat Suara:<div id="riwayat" style="color:#fff;margin-top:8px">- Panen 7 KG, Blok C, Bawah</div></div>
+<div class="nav"><span>🏠<br>Dashboard</span><span onclick="openVoice()">🎤<br>Voice</span><span onclick="resetAll()">↺<br>Reset</span></div>
 <div class="modal" id="m"><div class="box">
 <button class="x" onclick="closeM()">×</button>
 <h2 style="margin:0">🎤 Voice Panen - AI Voice Note</h2>
-<p style="color:#aaa">Pencet mic, ngomong 'Panen 7 kilo Blok C', jadi data.</p>
-<div class="mic" onclick="startRec()">🎤</div>
+<p style="color:#aaa">Pencet mic, ngomong contoh: 'Panen 12 kilo Blok B'</p>
+<div class="mic" id="micBtn" onclick="startRec()">🎤</div>
 <div style="text-align:center;color:#f5c86e;font-weight:800" id="status">Belum merekam...</div>
-<div class="info">✅ Contoh AI: "Panen 7 KG, Blok C, Bawah" → Tersimpan<br><span id="hasil" style="color:#4ade80"></span></div>
-<button class="close" onclick="closeM()">TUTUP →</button>
+<div class="info">Hasil: <b id="hasil" style="color:#4ade80">Belum ada</b><br><span style="color:#888;font-size:13px">Angka di atas bakal berubah otomatis.</span></div>
+<div style="display:flex;gap:8px"><button class="small" onclick="closeM()">← KEMBALI</button><button class="small" onclick="startRec()">↺ ULANGI</button><button class="small" onclick="resetAll();closeM()">↺ RESET AWAL</button></div><br>
+<button class="close" onclick="closeM()">SIMPAN & TUTUP →</button>
 </div></div>
 <script>
+var baseTotal=21210, todayVal=7;
 function openVoice(){document.getElementById('m').classList.add('open')}
-function closeM(){document.getElementById('m').classList.remove('open')}
-function showApps(){openVoice()}
+function closeM(){document.getElementById('m').classList.remove('open');document.getElementById('micBtn').classList.remove('rec')}
+function resetAll(){todayVal=7;baseTotal=21210;document.getElementById('today').innerText='7 KG';document.getElementById('total').innerText='21,210 Kg';document.getElementById('todayBlok').innerHTML='Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese';document.getElementById('riwayat').innerHTML='- Panen 7 KG, Blok C, Bawah';document.getElementById('hasil').innerText='Belum ada';document.getElementById('status').innerText='Belum merekam...';}
+function proses(t){
+  document.getElementById('status').innerText='Hasil: '+t;
+  document.getElementById('hasil').innerText=t;
+  var m=t.match(/(\d+)\s*(kilo|kg|kintal|ton)?/i);
+  var angka=m?parseInt(m[1]):0;
+  if(m&&m[2]&&m[2].toLowerCase()=='kintal')angka=angka*100;
+  if(m&&m[2]&&m[2].toLowerCase()=='ton')angka=angka*1000;
+  var blok='Blok C'; var bm=t.match(/blok\s*([A-Z])/i); if(bm)blok='Blok '+bm[1].toUpperCase();
+  if(angka>0){
+    todayVal=angka; baseTotal=baseTotal+angka;
+    document.getElementById('today').innerText=angka+' KG';
+    document.getElementById('todayBlok').innerText=blok+' • Dari Suara';
+    document.getElementById('total').innerText=baseTotal.toLocaleString('id-ID')+' Kg';
+    document.getElementById('riwayat').innerHTML='- '+t+' → <b style="color:#4ade80">'+angka+' KG, '+blok+'</b><br>'+document.getElementById('riwayat').innerHTML;
+    document.getElementById('status').innerText='✅ Tersimpan! Angka udah berubah.';
+  } else { document.getElementById('status').innerText='❌ Gak kedengeran angkanya. Coba lagi: Panen 12 kilo Blok B'; }
+  document.getElementById('micBtn').classList.remove('rec');
+}
 function startRec(){
-  var s=document.getElementById('status'); s.innerText='🎙️ Merekam... ngomong sekarang...';
+  var s=document.getElementById('status'); s.innerText='🎙️ Merekam... ngomong sekarang...'; document.getElementById('micBtn').classList.add('rec');
   var Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!Rec){ s.innerText='Mic aktif (demo) - Hasil: Panen 7 KG, Blok C, Bawah'; document.getElementById('hasil').innerText='✅ Tersimpan: Panen 7 KG, Blok C, Bawah'; return; }
-  var r=new Rec(); r.lang='id-ID'; r.onresult=function(e){ var t=e.results[0][0].transcript; s.innerText='Hasil: '+t; document.getElementById('hasil').innerText='✅ Tersimpan: '+t; }; r.onerror=function(){ s.innerText='Belum merekam... coba lagi'; }; r.start();
+  if(!Rec){ setTimeout(function(){proses('Panen 12 kilo Blok B')},800); return; }
+  var r=new Rec(); r.lang='id-ID'; r.onresult=function(e){ proses(e.results[0][0].transcript) }; r.onerror=function(){ s.innerText='Mic gagal. Coba pencet lagi.'; document.getElementById('micBtn').classList.remove('rec') }; r.start();
 }
 </script></body></html>
