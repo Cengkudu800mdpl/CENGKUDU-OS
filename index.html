@@ -3,111 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CENGKUDU-OS ULTIMATE</title>
+<title>CENGKUDU-OS</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#000;color:#fff;overflow:hidden;height:100vh}
-#boot{position:fixed;inset:0;background:#000;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center}
-#boot h1{color:#00ff88;font-size:42px;text-align:center}
-#boot p{margin-top:10px;color:#aaa}
-#bar{width:260px;height:8px;background:#222;border-radius:10px;margin-top:20px;overflow:hidden}
-#fill{height:100%;width:0%;background:#00ff88;transition:.3s}
-#desktop{display:none;height:100vh;background:linear-gradient(135deg,#001a0f,#003322,#000);position:relative;padding:15px}
-#icons{display:grid;grid-template-columns:repeat(3,90px);gap:15px}
-.icon{width:90px;text-align:center;cursor:pointer}
-.icon div{font-size:38px;background:#111;border:2px solid #00ff88;border-radius:14px;padding:12px}
-.icon span{font-size:12px;display:block;margin-top:5px}
-#taskbar{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(0,0,0,.85);display:flex;align-items:center;padding:0 10px;gap:10px;z-index:100;border-top:1px solid #00ff88}
-#startBtn{background:#00ff88;color:#000;border:0;padding:9px 16px;border-radius:8px;font-weight:bold;cursor:pointer}
-#clock{margin-left:auto;font-weight:bold;color:#00ff88}
-#startMenu{display:none;position:fixed;bottom:55px;left:10px;width:250px;background:#111;border:2px solid #00ff88;border-radius:14px;padding:12px;z-index:101}
-#startMenu button{display:block;width:100%;text-align:left;background:#222;color:#fff;border:0;padding:11px;border-radius:8px;margin:5px 0;cursor:pointer}
-#startMenu button:hover{background:#00ff88;color:#000}
-.win{display:none;position:absolute;top:60px;left:10px;right:10px;background:#111;border:2px solid #00ff88;border-radius:14px;z-index:50;max-height:75vh;overflow:auto}
-.winHead{display:flex;justify-content:space-between;align-items:center;background:#00ff88;color:#000;padding:10px 12px;border-radius:12px 12px 0 0;font-weight:bold}
-.winHead button{background:#000;color:#fff;border:0;padding:4px 10px;border-radius:6px;cursor:pointer}
-.winBody{padding:14px}
-input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#fff;margin:5px 0}
-.calcBtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
-.calcBtns button{padding:14px;font-size:18px;background:#222;color:#fff;border:1px solid #444;border-radius:8px;cursor:pointer}
-.calcBtns button:hover{background:#00ff88;color:#000}
-#termOut{background:#000;color:#00ff88;height:200px;overflow:auto;padding:10px;border-radius:8px;font-family:monospace;font-size:13px;white-space:pre-wrap}
-.colorBtn{padding:10px 14px;border:0;border-radius:8px;margin:4px;cursor:pointer;font-weight:bold}
-</style>
-</head>
-<body>
-
-<div id="boot">
-<h1>CENGKUDU-OS<br>ULTIMATE</h1>
-<p>Loading system... jangan dimatiin, Jendral</p>
-<div id="bar"><div id="fill"></div></div>
-<p id="bootText">0%</p>
-</div>
-
-<div id="desktop">
-<h2 style="color:#00ff88">CENGKUDU-OS ULTIMATE 🚀</h2>
-<p style="font-size:13px;color:#aaa;margin:5px 0 15px">Klik icon untuk buka aplikasi. Versi tertinggi, no bolak-balik.</p>
-<div id="icons">
-<div class="icon" onclick="openApp('calc')"><div>🧮</div><span>Kalkulator</span></div>
-<div class="icon" onclick="openApp('note')"><div>📝</div><span>Notepad</span></div>
-<div class="icon" onclick="openApp('term')"><div>💻</div><span>Terminal</span></div>
-<div class="icon" onclick="openApp('files')"><div>📁</div><span>Files</span></div>
-<div class="icon" onclick="openApp('game')"><div>🎮</div><span>Game</span></div>
-<div class="icon" onclick="openApp('about')"><div>ℹ️</div><span>Tentang</span></div>
-<div class="icon" onclick="openApp('set')"><div>⚙️</div><span>Setting</span></div>
-<div class="icon" onclick="window.location.href='v7.html'"><div>☕</div><span>JUAL</span></div>
-</div>
-
-<!-- KALKULATOR -->
-<div class="win" id="calc"><div class="winHead">🧮 Kalkulator <button onclick="closeApp('calc')">X</button></div><div class="winBody"><input id="calcIn" readonly placeholder="0"><div class="calcBtns"><button onclick="cIn('7')">7</button><button onclick="cIn('8')">8</button><button onclick="cIn('9')">9</button><button onclick="cIn('/')">/</button><button onclick="cIn('4')">4</button><button onclick="cIn('5')">5</button><button onclick="cIn('6')">6</button><button onclick="cIn('*')">x</button><button onclick="cIn('1')">1</button><button onclick="cIn('2')">2</button><button onclick="cIn('3')">3</button><button onclick="cIn('-')">-</button><button onclick="cIn('0')">0</button><button onclick="cIn('.')">.</button><button onclick="cClear()">C</button><button onclick="cIn('+')">+</button></div><button onclick="cEq()" style="width:100%;padding:13px;margin-top:8px;background:#00ff88;border:0;border-radius:8px;font-weight:bold">= HITUNG</button></div></div>
-
-<!-- NOTEPAD -->
-<div class="win" id="note"><div class="winHead">📝 Notepad <button onclick="closeApp('note')">X</button></div><div class="winBody"><textarea id="noteText" rows="8" placeholder="Tulis apa aja disini Jendral... otomatis kesimpen"></textarea><button onclick="saveNote()" style="padding:10px 16px;background:#00ff88;border:0;border-radius:8px;font-weight:bold">💾 SIMPAN</button><p id="noteMsg" style="margin-top:8px;color:#00ff88"></p></div></div>
-
-<!-- TERMINAL -->
-<div class="win" id="term"><div class="winHead">💻 Terminal Hacker <button onclick="closeApp('term')">X</button></div><div class="winBody"><div id="termOut">CENGKUDU-OS Terminal vULTIMATE\nKetik: help / halo / siapa / clear\n> </div><input id="termIn" placeholder="Ketik perintah lalu Enter..."></div></div>
-
-<!-- FILES -->
-<div class="win" id="files"><div class="winHead">📁 File Explorer <button onclick="closeApp('files')">X</button></div><div class="winBody"><p>📄 cengkudu-os-system.txt</p><p>📄 rahasia-negara.txt</p><p>📄 foto-jendral.jpg</p><p>📁 folder-penting</p><p style="color:#00ff88;margin-top:10px">Total: 4 file | Storage: 999GB GRATIS</p><button onclick="alert('File berhasil dibuka! (pura-pura)')" style="padding:10px;background:#00ff88;border:0;border-radius:8px;font-weight:bold;margin-top:10px">Buka File</button></div></div>
-
-<!-- GAME -->
-<div class="win" id="game"><div class="winHead">🎮 Tebak Angka <button onclick="closeApp('game')">X</button></div><div class="winBody"><p>Gue mikir angka 1-10. Tebak!</p><input id="guess" type="number" placeholder="Tebak 1-10"><button onclick="checkGuess()" style="padding:11px;background:#00ff88;border:0;border-radius:8px;font-weight:bold;width:100%;margin-top:5px">TEBAK!</button><p id="gameMsg" style="margin-top:10px"></p></div></div>
-
-<!-- ABOUT -->
-<div class="win" id="about"><div class="winHead">ℹ️ Tentang <button onclick="closeApp('about')">X</button></div><div class="winBody"><h3>CENGKUDU-OS ULTIMATE</h3><p style="margin-top:8px">Dibuat oleh: JENDRAL CENGKUDU</p><p>Versi: ULTIMATE 1.0</p><p>Website: cengkudu800mdpl.github.io</p><p style="color:#00ff88;margin-top:10px">Cepat. Ringan. Gila. Tanpa bolak-balik.</p></div></div>
-
-<!-- SETTING -->
-<div class="win" id="set"><div class="winHead">⚙️ Setting <button onclick="closeApp('set')">X</button></div><div class="winBody"><p>Ganti warna tema:</p><button class="colorBtn" style="background:#00ff88" onclick="setTheme('#00ff88')">Hijau</button><button class="colorBtn" style="background:#00aaff;color:#fff" onclick="setTheme('#00aaff')">Biru</button><button class="colorBtn" style="background:#ff0055;color:#fff" onclick="setTheme('#ff0055')">Pink</button><button class="colorBtn" style="background:#ffaa00" onclick="setTheme('#ffaa00')">Kuning</button><p id="setMsg" style="margin-top:10px;color:#00ff88"></p></div></div>
-
-</div>
-
-<div id="startMenu">
-<b style="color:#00ff88">START MENU</b>
-<button onclick="openApp('calc')">🧮 Kalkulator</button>
-<button onclick="openApp('note')">📝 Notepad</button>
-<button onclick="openApp('term')">💻 Terminal</button>
-<button onclick="openApp('game')">🎮 Game Tebak Angka</button>
-<button onclick="openApp('about')">ℹ️ Tentang OS</button>
-<button onclick="alert('CENGKUDU-OS dimatikan. Dadah Jendral!');location.reload()">⏻ Shutdown</button>
-</div>
-
-<div id="taskbar"><button id="startBtn" onclick="toggleStart()">⊞ START</button><span>🟢 CENGKUDU-OS ULTIMATE</span><span id="clock">00:00:00</span></div>
-
-<script>
-let p=0; let iv=setInterval(()=>{p+=Math.floor(Math.random()*18)+8; if(p>=100){p=100;clearInterval(iv); setTimeout(()=>{document.getElementById('boot').style.display='none';document.getElementById('desktop').style.display='block';},400);} document.getElementById('fill').style.width=p+'%'; document.getElementById('bootText').innerText=p+'%';},250);
-function openApp(id){document.querySelectorAll('.win').forEach(w=>w.style.display='none'); document.getElementById(id).style.display='block'; document.getElementById('startMenu').style.display='none';}
-function closeApp(id){document.getElementById(id).style.display='none';}
-function toggleStart(){let m=document.getElementById('startMenu'); m.style.display=m.style.display=='block'?'none':'block';}
-function cIn(v){document.getElementById('calcIn').value+=v;}
-function cClear(){document.getElementById('calcIn').value='';}
-function cEq(){try{document.getElementById('calcIn').value=eval(document.getElementById('calcIn').value);}catch(e){alert('Rumus salah Jendral!');}}
-function saveNote(){localStorage.setItem('cengkuduNote',document.getElementById('noteText').value); document.getElementById('noteMsg').innerText='✅ Tersimpan!';}
-document.getElementById('noteText').value=localStorage.getItem('cengkuduNote')||'';
-let secret=Math.floor(Math.random()*10)+1;
-function checkGuess(){let g=document.getElementById('guess').value; let m=document.getElementById('gameMsg'); if(g==secret){m.innerText='🎉 BENAR! Lu jenius Jendral! Angka baru udah diacak.'; secret=Math.floor(Math.random()*10)+1;} else if(g<secret){m.innerText='Kurang gede, naikin dikit!';} else {m.innerText='Kegedean, turunin dikit!';}}
-document.getElementById('termIn').addEventListener('keydown',function(e){if(e.key==='Enter'){let cmd=this.value.toLowerCase().trim(); let out=document.getElementById('termOut'); let res='> '+cmd+'\n'; if(cmd=='help')res+='Perintah: help, halo, siapa, cengkudu, clear\n'; else if(cmd=='halo')res+='Halo Jendral! Selamat datang di CENGKUDU-OS\n'; else if(cmd=='siapa')res+='Lu adalah JENDRAL CENGKUDU, pembuat OS tergila.\n'; else if(cmd=='cengkudu')res+='CENGKUDU = Cepat. Ringan. Gila.\n'; else if(cmd=='clear'){out.innerText=''; this.value=''; return;} else res+='Perintah tidak dikenal. Ketik help\n'; out.innerText+=res; this.value=''; out.scrollTop=out.scrollHeight;}});
-function setTheme(c){document.querySelectorAll('#startBtn,.winHead').forEach(el=>el.style.background=c); document.getElementById('setMsg').innerText='Tema diganti!';}
-setInterval(()=>{let d=new Date(); document.getElementById('clock').innerText=d.toLocaleTimeString('id-ID');},1000);
-</script>
-</body>
-</html>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:#0f0f1a;color:#fff;overflow:hidden;height:100vh}
+#boot{position:fixed;inset:0;background:#0f0f1a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100}
+#boot h1{font-size:48px;letter-spacing:4px}
+#boot h1 span{color:#a78bfa}
+#boot p{color:#aaa;margin-top:10px}
+#bar{width:260px;height:8px;background:#222;border-radius:99px;margin-top:25px;overflow:hidden}
+#fill{height:100%;width:0%;background:#a78bfa;transition:.3s}
+#desktop{display:none;height:100vh;background:linear-gradient(135deg,#1e1b4b,#312e81,#0f0f1a);padding:20px}
+#top{font-size:13px;opacity:.8;display:flex;justify-content:space-between}
+#icons{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:25px}
+.icon{text-align:center;cursor:pointer}
+.icon div{font-size:38px;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border-radius:18px;padding:16px 0;border:1px solid rgba(255,255,255,.15)}
+.icon span{font-size:12px;display:block;margin-top:6px}
+#taskbar{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(0,0,0,.6);backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:center;gap:12px;border-top:1px solid rgba(255,255,255,.1)}
+#taskbar button{background:#fff;color:#000;border:0;padding:9px 18px;border-radius:99px;font-weight:700;cursor:pointer}
+#taskbar span{font-size:12px;opacity:.8}
+.win{display:none;position:fixed;inset:15px 15px 65px;background:#fff;color:#111;border-radius:18px;padding:
