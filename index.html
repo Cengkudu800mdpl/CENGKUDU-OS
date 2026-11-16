@@ -1,70 +1,98 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CENGKUDU OS - PULANG KE MASA DEPAN</title>
+<title>CENGKUDU-OS v10 | Pulang Ke Masa Depan</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:90px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
-.logo{font-size:22px;font-weight:900}.logo span{color:#f5d67b}
-.badge{background:#0f3d2a;color:#7dffb0;padding:7px 12px;border-radius:999px;font-size:13px}
-.hero{padding:6px 16px 16px}.small{color:#e8c97a;letter-spacing:2px;font-size:12px;font-weight:700}
-h1{font-size:48px;line-height:.95;margin:12px 0}.gold{background:linear-gradient(90deg,#fff,#f5d67b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sub{color:#bbb;line-height:1.5;font-size:14px}.sub b{color:#fff}
-.btnrow{display:flex;gap:10px;margin-top:16px}.btn{flex:1;padding:14px;border-radius:999px;border:1px solid #555;font-weight:900;text-align:center;cursor:pointer}
-.btn-gold{background:linear-gradient(90deg,#f5d67b,#fff0b0);color:#111;border:none}.btn-dark{background:#111;color:#fff}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}.card{background:#141414;border:1px solid #2a2a2a;border-radius:18px;padding:14px;cursor:pointer}
-.card small{color:#aaa}.big{font-size:32px;font-weight:900;margin:8px 0}.big i{color:#00e5ff;font-style:normal}
-.card p{color:#888;font-size:12px;line-height:1.5;margin:0}.link{color:#e8c97a;font-size:12px}
-.wide{margin:14px 16px;background:#141414;border:1px solid #2a2a2a;border-radius:16px;padding:14px;font-size:13px;color:#ccc}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;font-size:12px}
-.nav div{text-align:center;cursor:pointer}.nav .on{color:#f5d67b;font-weight:900}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;z-index:99}.modal.open{display:flex}
-.box{background:#1a1a1a;width:100%;border-radius:22px 22px 0 0;padding:16px;max-height:85vh;overflow:auto}
-.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.app{background:#2a2a2a;border-radius:14px;padding:12px 4px;text-align:center;font-size:12px;cursor:pointer}
-.close{background:linear-gradient(90deg,#f5d67b,#fff0b0);color:#111;border:none;width:100%;padding:14px;border-radius:999px;font-weight:900;margin-top:14px}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#fff;margin:6px 0}
-.mic{width:90px;height:90px;background:#ff3b30;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;margin:16px auto}
-.hasil{background:#2a2a2a;border-radius:12px;padding:12px;margin:10px 0;font-size:13px;line-height:1.5}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+body{background:#07080A;color:#fff;min-height:100vh;padding-bottom:96px}
+.top{position:sticky;top:0;z-index:20;background:rgba(7,8,10,.9);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:18px}.logo span{color:#E8B86D}
+.logo i{font-style:normal;font-size:10px;background:#E8B86D;color:#111;padding:2px 6px;border-radius:99px;margin-left:6px}
+.live{font-size:11px;background:#0f2e1c;color:#7CFFB2;padding:6px 10px;border-radius:99px}
+.hero{padding:22px 16px 8px}.hero small{color:#E8B86D;letter-spacing:2px;font-weight:800;font-size:11px}
+.hero h1{font-size:36px;line-height:1.02;margin:10px 0 8px;background:linear-gradient(90deg,#fff,#E8B86D,#00E5FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#B8A99A;font-size:13px;line-height:1.6}.hero b{color:#fff}
+.btns{display:flex;gap:10px;margin-top:16px}.btn{flex:1;text-align:center;padding:13px;border-radius:99px;font-weight:800;font-size:13px;cursor:pointer;border:none}
+.btn-gold{background:linear-gradient(90deg,#E8B86D,#F5D9A8);color:#111}.btn-line{border:1px solid #444;color:#fff;background:rgba(255,255,255,.06)}
+.grid{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:15px;cursor:pointer}
+.card label{font-size:11px;color:#B8A99A}.card b{font-size:26px;display:block;margin:7px 0 3px}.card b i{font-style:normal;color:#00E5FF}
+.card small{font-size:11px;color:#8A7F73;line-height:1.4;display:block}.card .big{font-size:29px}
+.card.full{grid-column:span 2}
+.timeline{padding:4px 16px}.timeline h3,.qrbox h3{font-size:14px;margin:16px 0 10px}
+.step{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer}
+.step .dot{width:34px;height:34px;border-radius:99px;background:#E8B86D;color:#111;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.step.done .dot{background:#00E5FF}.step p{font-size:13px;font-weight:700}.step span{font-size:11px;color:#A99E92}
+.qrbox{padding:4px 16px}.qr-inner{background:linear-gradient(135deg,#F5EEDD,#E8DCC0);color:#111;border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;cursor:pointer}
+.qr{width:86px;height:86px;background:#fff;border:2px solid #111;display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0;border-radius:10px}
+.qr-inner b{font-size:14px}.qr-inner p{font-size:11px;color:#555;margin-top:4px;line-height:1.5}
+.footer{padding:18px 16px;text-align:center;font-size:10px;color:#777;line-height:1.6}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#11120F;border-top:1px solid #2a2118;display:flex;padding:10px 0 14px;z-index:20}
+.nav a{flex:1;text-align:center;color:#999;font-size:11px;cursor:pointer}.nav a.on{color:#E8B86D;font-weight:800}.nav a div{font-size:20px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-end;z-index:99}.modal.open{display:flex}
+.box{background:#1a1a1a;width:100%;border-radius:22px 22px 0 0;padding:18px;max-height:88vh;overflow:auto}
+.box h2{font-size:18px;margin-bottom:8px}.box p{font-size:13px;color:#ccc;line-height:1.6}
+.hasil{background:#2a2a2a;border-radius:12px;padding:12px;margin:10px 0;font-size:13px;line-height:1.7}
+.close{background:linear-gradient(90deg,#E8B86D,#F5D9A8);color:#111;border:none;width:100%;padding:14px;border-radius:99px;font-weight:900;margin-top:14px;cursor:pointer}
+.wabtn{background:#25D366;color:#fff;border:none;width:100%;padding:13px;border-radius:99px;font-weight:800;margin-top:8px;cursor:pointer}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.app{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 4px;text-align:center;font-size:11px;cursor:pointer;line-height:1.3}
+.app div{font-size:20px;margin-bottom:4px}
 </style></head><body>
-<div class="top"><div class="logo">CENGKUDU<span>-OS</span> <small style="background:#f5d67b;color:#111;padding:3px 7px;border-radius:8px;font-size:11px">v9.4</small></div><div class="badge">● Online • Synced</div></div>
-<div class="hero"><div class="small">CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</div>
-<h1>PULANG KE<br><span class="gold">MASA DEPAN</span></h1>
-<p class="sub">An Offline-First OS for Coffee Farmers.<br><b>Voice to Data. Harvest to Market. Farm to Future.</b><br>Dari kebun 800 mdpl, untuk dunia.</p>
-<div class="btnrow"><div class="btn btn-gold" onclick="openApps()">LIHAT 20 APP</div><div class="btn btn-dark" onclick="wa()">BELI KOPI - WA</div></div></div>
+<div class="top"><div class="logo">CENGKUDU<span>-OS</span><i>v10</i></div><div class="live">● Online • Synced</div></div>
+<div class="hero"><small>CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</small>
+<h1>PULANG KE<br>MASA DEPAN</h1>
+<p>An Offline-First OS for Coffee Farmers.<br><b>Voice to Data. Harvest to Market. Farm to Future.</b><br>Dari kebun 800 mdpl, untuk dunia.</p>
+<div class="btns"><button class="btn btn-gold" onclick="openChannel()">LIHAT 20 APP</button><button class="btn btn-line" onclick="wa('Beli Kopi Banyumas 800 mdpl')">BELI KOPI - WA</button></div></div>
 <div class="grid">
-<div class="card" onclick="needCode('PANEN')"><small>🌱 Harvest Today</small><div class="big">7 <i>KG</i></div><p>Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
-<div class="card" onclick="needCode('PANEN')"><small>☕ Total Panen</small><div class="big">21,210 <i>Kg</i></div><p>CC-BTA-2026-001 • Synced<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
-<div class="card" onclick="needCode('PETANI')"><small>👨‍🌾 Farmers</small><div class="big">122 <i>Farmers</i></div><p>Banyumas • 800 Mdpl<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
-<div class="card" onclick="needCode('PANEN')"><small>📦 Blok BE</small><div class="big">5 <i>Kg</i></div><p>Sektor 3 • Ready<br><span class="link">👉 Pencet untuk Lihat Isi</span></p></div>
-</div>
-<div class="wide">📈 Panen Hari Ini • 320 Kg • QR Scan Batch • 12 Ready<br><br>
-<b>KODE PANEN:</b> <span id="kodePanen">Belum diisi</span><br><b>KODE PETANI:</b> <span id="kodePetani">Belum diisi</span><br><br>
-<input id="inPanen" placeholder="Kode Panen, misal CC-BTA-2026-001">
-<input id="inPetani" placeholder="Kode Petani, misal SUPRIYANTO-001">
-<button class="close" onclick="saveKode()">SIMPAN KODE - BUKA SEMUA</button>
-</div>
-<div class="nav"><div class="on" onclick="location.reload()">🏠<br>Dashboard</div><div onclick="openApps()">📊<br>20 App</div><div onclick="needCode('PETANI')">👨‍🌾<br>Petani</div></div>
-<div class="modal" id="modal"><div class="box"><h2>📺 20 APP - Pilih Channel</h2><p style="color:#aaa;font-size:13px">2 Jagoan ada ⭐. Yang lain contoh dulu. Yang Jualan (Harga/Jual/WA) tetep ke WA.</p><div class="apps" id="apps"></div><button class="close" onclick="closeApps()">TUTUP →</button></div></div>
-<div class="modal" id="modal2"><div class="box"><div id="mc"></div><button class="close" onclick="closeM2()">TUTUP →</button></div></div>
+<div class="card" onclick="openApp('Dashboard')"><label>🌱 Harvest Today</label><b>7 <i>KG</i></b><small>👉 Pencet untuk Lihat Isi</small></div>
+<div class="card" onclick="openApp('Dashboard')"><label>☕ Total Panen</label><b class="big">21,210 <i>Kg</i></b><small>👉 Pencet untuk Lihat Isi</small></div>
+<div class="card" onclick="openApp('Petani')"><label>👨‍🌾 Farmers</label><b>122 <i>Farmers</i></b><small>👉 Pencet untuk Lihat Isi</small></div>
+<div class="card" onclick="openApp('Blok Kebun')"><label>📦 Blok BE</label><b>5 <i>Kg</i></b><small>👉 Pencet untuk Lihat Isi</small></div>
+<div class="card full" onclick="openApp('Batch QR')"><label>📈 Panen Hari Ini • 320 Kg • QR Scan Batch • 12 Ready</label><b style="font-size:16px;margin-top:8px">📍 Lokasi • Blok BE, Sektor 3</b><small>DNA CODE: CC-BTA-2026-001 • CENGKUDU COFFEE ROASTERY<br>👉 Pencet untuk Lihat Isi</small></div></div>
+<div class="timeline"><h3>🔴 Live Process Timeline • Pencet untuk Lihat Isi</h3>
+<div class="step done" onclick="openApp('Panen')"><div class="dot">✓</div><p>PANEN <br><span>Completed • 07.12 WIB • 7 KG collected</span></p></div>
+<div class="step done" onclick="openApp('Fermentasi')"><div class="dot">2</div><p>FERMENTASI - ACTIVE <br><span>Started 09.30 WIB • pH 4.2 • Temp 28°C</span></p></div>
+<div class="step" onclick="openApp('Jemur')"><div class="dot">3</div><p>JEMUR - Pending <br><span>Scheduled today • Weather: Sunny 27°C</span></p></div>
+<div class="step" onclick="openApp('Roasting')"><div class="dot">4</div><p>ROASTING <br><span>Japanese Manual • Queued • Slow Roast</span></p></div>
+<div class="step" onclick="openApp('Batch QR')"><div class="dot">5</div><p>SACHET <br><span>20 sachet • Ready to pack • Batch CC-2026-007</span></p></div></div>
+<div class="qrbox"><h3>Buyer Traceability • QR Baru - Yang Tadi Lu Minta Nambah</h3>
+<div class="qr-inner" onclick="openApp('Batch QR')"><div class="qr">⬛</div><div><b>Total Harvest 21,210 Kg</b><p>Scan untuk lacak batch CC-2026-007<br>Offline-First • Blockchain Verified<br>SUPRIYANTO - CENGKUDU-OS v10<br>👉 Pencet untuk Info Batch</p></div></div></div>
+<div class="footer">PANEN. JEMUR. JUAL. Dari kebun 800 mdpl, untuk dunia.<br><br>© SUPRIYANTO • PETANI KOPI | ROASTERY | INDIE DEVELOPER • BANYUMAS<br>CENGKUDU-OS v10 • VISIONER • FUTURISTIC • OFFLINE-FIRST<br>WA: +6289669447121</div>
+<div class="nav"><a onclick="goTop()" class="on"><div>🏠</div>Dashboard</a><a onclick="openChannel()"><div>📊</div>20 App</a><a onclick="openApp('Petani')"><div>👨‍🌾</div>Petani</a></div>
+<div class="modal" id="modal"><div class="box"><div id="mc"></div><button class="close" onclick="closeM()">TUTUP →</button></div></div>
 <script>
-const list=["🎤 Voice Panen ⭐ JAGOAN","📊 Dashboard","📦 Batch QR","🌦️ Cuaca","🌱 Blok Kebun","👨‍🌾 Petani","💰 Harga Kopi","🛒 Jual Kopi","📝 Laporan","📈 Analitik","🔥 Roasting","☀️ Jemur","🧪 Fermentasi","📴 Offline Mode","🗺️ Peta Blok","💬 WA Order","🏆 Leaderboard","📚 Edukasi ⭐ JAGOAN","⚙️ Setting","ℹ️ Tentang"];
-document.getElementById('apps').innerHTML=list.map(x=>`<div class="app" onclick="openApp('${x}')">${x}</div>`).join('');
-function openApps(){document.getElementById('modal').classList.add('open')}
-function closeApps(){document.getElementById('modal').classList.remove('open')}
-function wa(){window.open('https://wa.me/6289600000000?text=Halo Cengkudu, mau beli kopi','_blank')}
-function openM(h){document.getElementById('mc').innerHTML=h;document.getElementById('modal2').classList.add('open')}
-function closeM2(){document.getElementById('modal2').classList.remove('open')}
-function needCode(t){let k=localStorage.getItem(t==='PANEN'?'kodePanen':'kodePetani'); if(!k){alert('Isi dulu '+(t==='PANEN'?'KODE PANEN':'KODE PETANI')+' di bawah, biar kebuka, gak blank.'); window.scrollTo(0,document.body.scrollHeight);}else{openM('<h2>'+t+' kebuka: '+k+'</h2><p>Harvest 7 KG, Total 21,210 Kg, 122 Farmers - sudah tersambung.</p>');}}
-function saveKode(){let p=document.getElementById('inPanen').value.trim(); let t=document.getElementById('inPetani').value.trim(); if(p){localStorage.setItem('kodePanen',p); document.getElementById('kodePanen').innerText=p;} if(t){localStorage.setItem('kodePetani',t); document.getElementById('kodePetani').innerText=t;} if(!p&&!t){alert('Isi dulu salah satu kode, Jendral.');return;} alert('Kode kesimpen! Sekarang pencet lagi kartunya, udah kebuka semua, gak blank.');}
-function openApp(n){
-  if(n.includes('Harga')||n.includes('Jual')||n.includes('WA')){wa();return;}
-  if(n.includes('Voice')){
-    openM('<h2>🎤 Voice Panen - AI Voice Note</h2><p style="color:#aaa">Pencet mic, ngomong \'Panen 7 kilo Blok C\', jadi data.</p><div class="mic">🎤</div><div class="hasil">✅ <b>Hasil AI: Panen 7 KG, Blok C, Bawah • Tersimpan!</b></div><div class="hasil">✅ Contoh AI: "Panen 7 KG, Blok C, Bawah" → Tersimpan</div>');
-  } else if(n.includes('Edukasi')){
-    openM('<h2>📚 Edukasi ⭐ JAGOAN</h2><p>1. Panen cherry merah saja.<br>2. Fermentasi 24 jam.<br>3. Jemur sampai 11% kadar air.<br><br>Dari kebun 800 mdpl, untuk dunia.</p>');
-  } else {
-    openM('<h2>'+n+'</h2><p>Kebuka. Kalau masih blank, isi dulu Kode Panen / Kode Petani di bawah.</p>');
-  }
-  closeApps();
+function wa(msg){window.open("https://wa.me/6289669447121?text="+encodeURIComponent("Halo CENGKUDU-OS, saya mau tanya: "+msg),"_blank");}
+function goTop(){window.scrollTo({top:0,behavior:"smooth"});}
+function openM(h){document.getElementById("mc").innerHTML=h;document.getElementById("modal").classList.add("open");}
+function closeM(){document.getElementById("modal").classList.remove("open");}
+function openChannel(){
+openM("<h2>📺 20 APP - Pilih Channel</h2><p>2 Jagoan ada ⭐. Yang lain contoh dulu. Yang Jualan (Harga/Jual/WA) tetep ke WA.</p><div class='app-grid'>"
++"<div class='app' onclick=\"closeM();openApp('Voice Panen')\"><div>🎤</div>Voice Panen<br>⭐ JAGOAN</div>"
++"<div class='app' onclick=\"closeM();openApp('Dashboard')\"><div>📊</div>Dashboard</div>"
++"<div class='app' onclick=\"closeM();openApp('Batch QR')\"><div>📦</div>Batch QR</div>"
++"<div class='app' onclick=\"closeM();openApp('Cuaca')\"><div>🌦️</div>Cuaca</div>"
++"<div class='app' onclick=\"closeM();openApp('Blok Kebun')\"><div>🌱</div>Blok Kebun</div>"
++"<div class='app' onclick=\"closeM();openApp('Petani')\"><div>👨‍🌾</div>Petani</div>"
++"<div class='app' onclick=\"closeM();wa('Harga Kopi hari ini')\"><div>💰</div>Harga Kopi</div>"
++"<div class='app' onclick=\"closeM();wa('Mau Beli Kopi')\"><div>🛒</div>Jual Kopi</div>"
++"<div class='app' onclick=\"closeM();openApp('Laporan')\"><div>📝</div>Laporan</div>"
++"<div class='app' onclick=\"closeM();openApp('Analitik')\"><div>📈</div>Analitik</div>"
++"<div class='app' onclick=\"closeM();openApp('Roasting')\"><div>🔥</div>Roasting</div>"
++"<div class='app' onclick=\"closeM();openApp('Jemur')\"><div>☀️</div>Jemur</div>"
++"<div class='app' onclick=\"closeM();openApp('Fermentasi')\"><div>🧪</div>Fermentasi</div>"
++"<div class='app' onclick=\"closeM();openApp('Offline Mode')\"><div>📱</div>Offline Mode</div>"
++"<div class='app' onclick=\"closeM();openApp('Peta Blok')\"><div>🗺️</div>Peta Blok</div>"
++"<div class='app' onclick=\"closeM();wa('WA Order')\"><div>💬</div>WA Order</div>"
++"<div class='app' onclick=\"closeM();openApp('Leaderboard')\"><div>🏆</div>Leaderboard</div>"
++"<div class='app' onclick=\"closeM();openApp('Edukasi')\"><div>📚</div>Edukasi<br>⭐ JAGOAN</div>"
++"<div class='app' onclick=\"closeM();openApp('Setting')\"><div>⚙️</div>Setting</div>"
++"<div class='app' onclick=\"closeM();openApp('Tentang')\"><div>🌐</div>Tentang</div></div>");
 }
-let sp=localStorage.getItem('kodePanen'); let st=localStorage.getItem('kodePetani'); if(sp) document.getElementById('kodePanen').innerText=sp; if(st) document.getElementById('kodePetani').innerText=st;
+function openApp(n){
+if(n=="Voice Panen") openM("<h2>🎤 Voice Panen ⭐ JAGOAN</h2><div class='hasil'>🎤 Mic Merah = Aktif<br>Hasil AI: <b>Panen 7 KG, Blok C, Bawah</b><br>Ngomong 'Panen 7 kilo Blok C' langsung jadi data.<br><br>Ini yang jagoan, udah jalan.</div>");
+else if(n=="Edukasi") openM("<h2>📚 Edukasi ⭐ JAGOAN</h2><p>1. Panen cherry merah saja.<br>2. Fermentasi 24 jam.<br>3. Jemur sampai 11% kadar air.<br><br>Ini yang jagoan kedua, udah jalan.<br>Dari kebun 800 mdpl, untuk dunia.</p>");
+else if(n=="Harga Kopi") openM("<h2>💰 Harga Kopi</h2><div class='hasil'>Cherry Merah: <b>Rp 8.000 / Kg</b><br>Green Bean: <b>Rp 95.000 / Kg</b><br>Roasted: <b>Rp 180.000 / Kg</b></div><button class='wabtn' onclick=\"wa('Harga Kopi hari ini')\">TANYA HARGA - WA ✅</button>");
+else if(n=="Jual Kopi") openM("<h2>🛒 Jual Kopi</h2><div class='hasil'>Stok Ready: <b>320 Kg</b><br>Min order: 1 Kg<br>Kirim: Banyumas - Seluruh Indonesia</div><button class='wabtn' onclick=\"wa('Mau Beli Kopi')\">BELI VIA WA ✅</button>");
+else openM("<h2>"+n+"</h2><div class='hasil'>Ini <b>CONTOH dulu</b>.<br>Belum aktif penuh.<br><br>Yang udah jalan cuma 2 Jagoan: Voice Panen & Edukasi.<br>Yang ke WA cuma: Harga, Jual, WA Order.</div>");
+}
 </script></body></html>
