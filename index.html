@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CENGKUDU-OS v9.2 | Pulang Ke Masa Depan</title>
+<title>CENGKUDU-OS v9.3 | Pulang Ke Masa Depan</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
 body{background:#07080A;color:#fff;min-height:100vh;padding-bottom:96px;background-image:radial-gradient(600px 300px at 20% 0%,rgba(0,229,255,.12),transparent),radial-gradient(500px 300px at 90% 10%,rgba(232,184,109,.14),transparent)}
@@ -18,11 +18,12 @@ body{background:#07080A;color:#fff;min-height:100vh;padding-bottom:96px;backgrou
 .hero p{color:#B8A99A;font-size:13px;line-height:1.6}
 .hero b{color:#fff}
 .btns{display:flex;gap:10px;margin-top:16px}
-.btn{flex:1;text-align:center;padding:13px;border-radius:99px;font-weight:800;font-size:13px;text-decoration:none}
+.btn{flex:1;text-align:center;padding:13px;border-radius:99px;font-weight:800;font-size:13px;text-decoration:none;cursor:pointer;border:none}
 .btn-gold{background:linear-gradient(90deg,#E8B86D,#F5D9A8);color:#111;box-shadow:0 8px 24px rgba(232,184,109,.3)}
 .btn-line{border:1px solid #444;color:#fff;background:rgba(255,255,255,.06)}
 .grid{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:15px;position:relative;overflow:hidden}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:15px;position:relative;overflow:hidden;cursor:pointer}
+.card:active{transform:scale(.97)}
 .card:after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#E8B86D,#00E5FF)}
 .card.full{grid-column:span 2}
 .card label{font-size:11px;color:#B8A99A;letter-spacing:.5px}
@@ -33,38 +34,90 @@ body{background:#07080A;color:#fff;min-height:100vh;padding-bottom:96px;backgrou
 .apps{padding:6px 16px}
 .apps h3{font-size:14px;margin:14px 0 10px}
 .app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.app{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px 4px;text-align:center;font-size:11px;line-height:1.3}
+.app{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px 4px;text-align:center;font-size:11px;line-height:1.3;cursor:pointer}
+.app:active{transform:scale(.92);background:#E8B86D;color:#111}
 .app div{font-size:20px;margin-bottom:4px}
 .timeline{padding:4px 16px}
 .timeline h3,.qrbox h3{font-size:14px;margin:16px 0 10px}
-.step{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px;margin-bottom:8px}
+.step{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer}
 .step .dot{width:34px;height:34px;border-radius:99px;background:#E8B86D;color:#111;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:13px}
 .step.done .dot{background:#00E5FF}
 .step p{font-size:13px;font-weight:700;line-height:1.3}
 .step span{font-size:11px;color:#A99E92;font-weight:400}
 .qrbox{padding:4px 16px}
-.qr-inner{background:linear-gradient(135deg,#F5EEDD,#E8DCC0);color:#111;border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center}
+.qr-inner{background:linear-gradient(135deg,#F5EEDD,#E8DCC0);color:#111;border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;cursor:pointer}
 .qr{width:86px;height:86px;background:#fff;border:2px solid #111;display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0;border-radius:10px}
 .qr-inner b{font-size:14px}
 .qr-inner p{font-size:11px;color:#555;margin-top:4px;line-height:1.5}
 .footer{padding:18px 16px;text-align:center;font-size:10px;color:#777;letter-spacing:1px;line-height:1.6}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#11120F;border-top:1px solid #2a2118;display:flex;padding:10px 0 14px;z-index:20}
-.nav a{flex:1;text-align:center;text-decoration:none;color:#999;font-size:11px}
+.nav a{flex:1;text-align:center;text-decoration:none;color:#999;font-size:11px;cursor:pointer}
 .nav a.on{color:#E8B86D;font-weight:800}
 .nav a div{font-size:20px}
 </style>
 </head>
 <body>
-<div class="top"><div class="logo">CENGKUDU<span>-OS</span><i>v9.2</i></div><div class="live">● Online • Synced</div></div>
+<div class="top"><div class="logo">CENGKUDU<span>-OS</span><i>v9.3</i></div><div class="live">● Online • Synced</div></div>
 <div class="hero">
 <small>CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</small>
 <h1>PULANG KE<br>MASA DEPAN</h1>
 <p>An Offline-First OS for Coffee Farmers.<br><b>Voice to Data. Harvest to Market. Farm to Future.</b><br>Dari kebun 800 mdpl, untuk dunia.</p>
-<div class="btns"><a class="btn btn-gold" href="#apps">LIHAT 20 APP</a><a class="btn btn-line" href="https://wa.me/6289669447121?text=Halo%20CENGKUDU-OS%2C%20saya%20mau%20pesan%20Kopi%20Banyumas%20800%20mdpl">BELI KOPI - WA</a></div>
+<div class="btns"><button class="btn btn-gold" onclick="goApps()">LIHAT 20 APP</button><button class="btn btn-line" onclick="wa('Beli Kopi Banyumas 800 mdpl')">BELI KOPI - WA</button></div>
 </div>
 <div class="grid" id="panen">
-<div class="card"><label>🌱 Harvest Today</label><b>7 <i>KG</i></b><small>Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese</small></div>
-<div class="card"><label>☕ Total Panen</label><b class="big">21,210 <i>Kg</i></b><small>CC-BTA-2026-001 • Synced</small></div>
-<div class="card"><label>👨‍🌾 Farmers</label><b>122 <i>Farmers</i></b><small>Banyumas • 800 Mdpl</small></div>
-<div class="card"><label>📦 Blok BE</label><b>5 <i>Kg</i></b><small>Sektor 3 • Ready</small></div>
-<div class="card full
+<div class="card" onclick="wa('Harvest Today 7 KG Blok C')"><label>🌱 Harvest Today</label><b>7 <i>KG</i></b><small>Blok C - Bawah • Dekat Kali<br>Voice to Data • Javanese<br>👉 Pencet untuk WA</small></div>
+<div class="card" onclick="wa('Total Panen 21,210 Kg')"><label>☕ Total Panen</label><b class="big">21,210 <i>Kg</i></b><small>CC-BTA-2026-001 • Synced<br>👉 Pencet untuk WA</small></div>
+<div class="card" onclick="wa('Info Farmers 122 Petani')"><label>👨‍🌾 Farmers</label><b>122 <i>Farmers</i></b><small>Banyumas • 800 Mdpl<br>👉 Pencet untuk WA</small></div>
+<div class="card" onclick="wa('Blok BE 5 Kg Sektor 3')"><label>📦 Blok BE</label><b>5 <i>Kg</i></b><small>Sektor 3 • Ready<br>👉 Pencet untuk WA</small></div>
+<div class="card full" onclick="wa('Lacak Batch CC-BTA-2026-001')"><label>📈 Panen Hari Ini ↔ 320 Kg • QR Scan Batch • 12 Ready</label><b style="font-size:16px;margin-top:8px">📍 Lokasi • Blok BE, Sektor 3</b><small>DNA CODE: CC-BTA-2026-001 • CENGKUDU COFFEE ROASTERY • ESTD 2025<br>👉 Pencet untuk lacak via WA</small></div>
+</div>
+<div class="apps" id="apps">
+<h3>🚀 20 APP • CENGKUDU-OS • Semua Bisa Dipencet</h3>
+<div class="app-grid">
+<div class="app" onclick="wa('Voice Panen')"><div>🎤</div>Voice Panen</div>
+<div class="app" onclick="wa('Dashboard')"><div>📊</div>Dashboard</div>
+<div class="app" onclick="wa('Batch QR')"><div>📦</div>Batch QR</div>
+<div class="app" onclick="wa('Cuaca Banyumas')"><div>🌦️</div>Cuaca</div>
+<div class="app" onclick="wa('Blok Kebun')"><div>🌱</div>Blok Kebun</div>
+<div class="app" onclick="wa('Data Petani')"><div>👨‍🌾</div>Petani</div>
+<div class="app" onclick="wa('Harga Kopi hari ini')"><div>💰</div>Harga Kopi</div>
+<div class="app" onclick="wa('Jual Kopi')"><div>🛒</div>Jual Kopi</div>
+<div class="app" onclick="wa('Laporan Panen')"><div>📝</div>Laporan</div>
+<div class="app" onclick="wa('Analitik Panen')"><div>📈</div>Analitik</div>
+<div class="app" onclick="wa('Roasting')"><div>🔥</div>Roasting</div>
+<div class="app" onclick="wa('Jemur Kopi')"><div>☀️</div>Jemur</div>
+<div class="app" onclick="wa('Fermentasi')"><div>🧪</div>Fermentasi</div>
+<div class="app" onclick="wa('Offline Mode')"><div>📱</div>Offline Mode</div>
+<div class="app" onclick="wa('Peta Blok')"><div>🗺️</div>Peta Blok</div>
+<div class="app" onclick="wa('WA Order')"><div>💬</div>WA Order</div>
+<div class="app" onclick="wa('Leaderboard Petani')"><div>🏆</div>Leaderboard</div>
+<div class="app" onclick="wa('Edukasi Kopi')"><div>📚</div>Edukasi</div>
+<div class="app" onclick="wa('Setting')"><div>⚙️</div>Setting</div>
+<div class="app" onclick="wa('Tentang CENGKUDU-OS')"><div>🌐</div>Tentang</div>
+</div>
+</div>
+<div class="timeline">
+<h3>🔴 Live Process Timeline • Pencet untuk WA</h3>
+<div class="step done" onclick="wa('Status PANEN 7 KG')"><div class="dot">✓</div><p>PANEN <br><span>Completed • 07.12 WIB • 7 KG collected</span></p></div>
+<div class="step done" onclick="wa('Status FERMENTASI')"><div class="dot">2</div><p>FERMENTASI - ACTIVE <br><span>Started 09.30 WIB • pH 4.2 • Temp 28°C</span></p></div>
+<div class="step" onclick="wa('Status JEMUR')"><div class="dot">3</div><p>JEMUR - Pending <br><span>Scheduled today • Weather: Sunny 27°C</span></p></div>
+<div class="step" onclick="wa('Status ROASTING')"><div class="dot">4</div><p>ROASTING <br><span>Japanese Manual • Queued • Slow Roast</span></p></div>
+<div class="step" onclick="wa('Status SACHET Batch CC-2026-007')"><div class="dot">5</div><p>SACHET <br><span>20 sachet • Ready to pack • Batch CC-2026-007</span></p></div>
+</div>
+<div class="qrbox">
+<h3>Buyer Traceability • Future Proof</h3>
+<div class="qr-inner" onclick="wa('Lacak Batch CC-2026-007 21,210 Kg')"><div class="qr">⬛</div><div><b>Total Harvest 21,210 Kg</b><p>Scan untuk lacak batch CC-2026-007<br>Offline-First • Blockchain Verified<br>SUPRIYANTO - CENGKUDU-OS v9.3<br>👉 Pencet untuk WA</p></div></div>
+</div>
+<div class="footer">PANEN. JEMUR. JUAL. Dari kebun 800 mdpl, untuk dunia.<br><br>© SUPRIYANTO • PETANI KOPI | ROASTERY | INDIE DEVELOPER • BANYUMAS<br>CENGKUDU-OS v9.3 • VISIONER • FUTURISTIC • OFFLINE-FIRST<br>WA: +6289669447121</div>
+<div class="nav">
+<a onclick="goTop()" class="on"><div>🏠</div>Dashboard</a>
+<a onclick="goApps()"><div>📊</div>Laporan</a>
+<a onclick="wa('Data Petani CENGKUDU')"><div>👨‍🌾</div>Petani</a>
+</div>
+<script>
+function wa(msg){var t="Halo CENGKUDU-OS, saya mau tanya: "+msg;window.open("https://wa.me/6289669447121?text="+encodeURIComponent(t),"_blank");}
+function goApps(){document.getElementById("apps").scrollIntoView({behavior:"smooth"});}
+function goTop(){window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
