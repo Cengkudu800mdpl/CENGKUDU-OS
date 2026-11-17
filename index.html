@@ -1,83 +1,111 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CENGKUDU-OS v9.4</title>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CENGKUDU-OS v9.5 - FIX</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif;padding-bottom:90px}
-.top{padding:14px 16px 0}.badge{display:inline-block;background:#1a1a1a;border:1px solid #333;padding:6px 10px;border-radius:999px;font-size:11px;letter-spacing:1px;color:#d8c9a3}
-h1{font-size:42px;line-height:.95;margin:14px 0 8px;text-transform:uppercase}
-h1 span{color:#e8d9a8}.sub{color:#aaa;font-size:14px;line-height:1.5;max-width:520px}
-.btns{display:flex;gap:10px;margin:16px 0}.btn{flex:1;padding:14px;border-radius:14px;text-align:center;font-weight:900;cursor:pointer}
-.gold{background:linear-gradient(180deg,#f5e6b8,#d9b45a);color:#000}.outline{background:#0a0a0a;color:#fff;border:1px solid #555}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}.card{background:#111;border:1px solid #222;border-radius:16px;padding:14px}
-.card small{color:#888;font-size:12px}.big{font-size:28px;color:#4fd8ff;font-weight:900;margin:6px 0}.card p{margin:0;color:#888;font-size:12px}
-.green{color:#2ecc71!important}.sec{padding:22px 16px 10px}.sec h2{margin:0;font-size:20px}.sec p{color:#888;font-size:13px}
-.apps{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}.app{background:#111;border:1px solid #222;border-radius:16px;padding:14px;cursor:pointer}
-.app b{font-size:14px}.app p{color:#888;font-size:12px;margin:4px 0 0}.app.star{border-color:#d9b45a;background:#1a1508}
-.bottom{position:fixed;left:0;right:0;bottom:0;background:#0a0a0a;border-top:1px solid #222;display:flex;justify-content:space-around;padding:12px 0;font-size:13px}
-.bottom b{color:#e8d9a8}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);align-items:flex-end;justify-content:center}
-.modal.open{display:flex}.box{background:#111;width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:18px}
-.mic{width:92px;height:92px;border-radius:50%;background:#e53935;border:none;font-size:40px;display:block;margin:14px auto;cursor:pointer}
-.center{text-align:center}.goldtxt{color:#e8d9a8}.row{display:flex;gap:8px;margin-top:12px}.row button{flex:1;padding:11px;border-radius:12px;background:#000;color:#fff;border:1px solid #444}
-</style></head><body>
-<div class="top"><span class="badge">CENGKUDU-OS v9.4</span><br><small style="color:#888">CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</small>
-<h1>PULANG<br><span>KE MASA DEPAN</span></h1>
-<p class="sub">An Offline-First OS for Coffee Farmers. Voice to Data. Harvest to Market. Farm to Future. Dari kebun 800 mdpl, untuk dunia.</p>
-<p class="sub">Voice to Data. Harvest to Market.<br><b style="color:#fff">Ngomong jadi angka. Angka jadi duit.</b></p>
-<div class="btns"><div class="btn gold" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">LIHAT 20 APP</div><a class="btn outline" style="text-decoration:none" href="https://wa.me/6280000000000">BELI KOPI - WA</a></div>
-<p style="font-size:12px"><span class="green">● Online • Synced</span> &nbsp; CC-BTA-2026-001</p></div>
-<div class="grid">
-<div class="card"><small>Harvest Today</small><div class="big">7 KG</div><p>Blok C - Bawah • Dekat Kali</p></div>
-<div class="card"><small>Total Panen</small><div class="big">21,210 Kg</div><p>CC-BTA-2026-001 • Synced</p></div>
-<div class="card"><small>Farmers</small><div class="big">122 Farmers</div><p>Banyumas • 800 Mdpl</p></div>
-<div class="card"><small>Blok BE</small><div class="big">5 Kg</div><p>Sektor 3 • Ready</p></div>
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,Arial;background:#0f1a12;color:#fff}
+header{padding:20px;text-align:center;background:#1a2e20}
+h1{margin:0;font-size:26px;color:#ffd700} .sub{color:#ccc;font-size:13px}
+.nav{display:flex;gap:8px;padding:10px;overflow:auto;background:#111;position:sticky;top:0;z-index:10}
+.nav button{white-space:nowrap;padding:10px 14px;border:0;border-radius:20px;background:#222;color:#fff;font-weight:700;cursor:pointer}
+.nav button.active{background:#ffd700;color:#000}
+.wrap{padding:14px;padding-bottom:90px;max-width:700px;margin:auto}
+.card{background:#1e3325;border:1px solid #2f4d3a;border-radius:14px;padding:14px;margin-bottom:12px}
+.card h3{margin:0 0 6px} .big{font-size:22px;font-weight:800;color:#ffd700}
+.gold{background:#ffd700;color:#000;border:0;padding:14px;width:100%;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer}
+.green{background:#25D366;color:#000;border:0;padding:12px;width:100%;border-radius:10px;font-weight:800;cursor:pointer}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#fff;margin:6px 0}
+.badge{display:inline-block;background:#ffd700;color:#000;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:800}
+.hidden{display:none} .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #333}
+</style>
+</head>
+<body>
+<header><h1>CENGKUDU-OS v9.5</h1><div class="sub">CENGKUDU 800 MDPL - BANYUMAS | FIX CHECKLIST</div></header>
+
+<div class="nav">
+<button onclick="showTab('dashboard',this)" class="active">Dashboard</button>
+<button onclick="showTab('panen',this)">🎤 Voice Panen ⭐</button>
+<button onclick="showTab('edukasi',this)">Edukasi</button>
+<button onclick="showTab('cuaca',this)">Cuaca</button>
+<button onclick="showTab('offline',this)">Offline Mode</button>
+<button onclick="showTab('apps',this)">20 APP</button>
 </div>
-<div class="sec" id="apps"><h2>20 APP</h2><p>Pilih APP yang mau dibuka.</p></div>
-<div class="apps">
-<div class="app star" onclick="openVoice()"><b>🎤 Voice Panen ⭐ JAGOAN</b><p>Ngomong jadi angka</p></div>
-<div class="app"><b>📊 Dashboard</b><p>Ringkasan kebun</p></div>
-<div class="app"><b>🔲 Batch QR</b><p>QR per batch</p></div>
-<div class="app"><b>🌦️ Cuaca</b><p>Cuaca kebun</p></div>
-<div class="app"><b>🌿 Blok Kebun</b><p>Data blok</p></div>
-<div class="app"><b>👨‍🌾 Petani</b><p>122 Petani</p></div>
-<div class="app"><b>💰 Harga Kopi</b><p>Harga hari ini</p></div>
-<div class="app"><b>🛒 Jual Kopi</b><p>Jual ke pasar</p></div>
-<div class="app"><b>📄 Laporan</b><p>Laporan panen</p></div>
-<div class="app"><b>📈 Analitik</b><p>Grafik panen</p></div>
-<div class="app"><b>🔥 Roasting</b><p>Profil sangrai</p></div>
-<div class="app"><b>☀️ Jemur</b><p>Proses jemur</p></div>
-<div class="app"><b>🫙 Fermentasi</b><p>Proses fermentasi</p></div>
-<div class="app"><b>📴 Offline Mode</b><p>Tanpa internet</p></div>
-<div class="app"><b>🗺️ Peta Blok</b><p>Peta kebun</p></div>
-<div class="app"><b>💬 WA Order</b><p>Order via WA</p></div>
-<div class="app"><b>🏆 Leaderboard</b><p>Petani teratas</p></div>
-<div class="app star"><b>📚 Edukasi ⭐ JAGOAN</b><p>Belajar kopi</p></div>
-<div class="app"><b>⚙️ Setting</b><p>Pengaturan</p></div>
-<div class="app"><b>ℹ️ Tentang</b><p>Tentang Cengkudu</p></div>
+
+<div class="wrap">
+
+<!-- DASHBOARD TAB - LANGSUNG, BUKAN WA -->
+<div id="tab-dashboard">
+<div class="card"><h3>📊 Dashboard</h3><p>Laporan minggu ini: <b class="big">58 KG</b></p><div class="row"><span>Petani terdaftar</span><b>122 Petani</b></div><div class="row"><span>Blok Kebun</span><b>12 Blok, Blok A paling banyak</b></div><div class="row"><span>Jemur hari ini</span><b>Hari ke-2, sisa 18%</b></div></div>
+<button class="gold" onclick="showTab('apps',null)">LIHAT 20 APP</button>
 </div>
-<div class="bottom"><span><b>Dashboard</b></span><span>20 App</span><span>Petani</span></div>
-<div class="modal" id="voice"><div class="box">
-<div style="display:flex;justify-content:space-between"><b>🎤 Voice Panen - AI Voice Note</b><span onclick="closeVoice()" style="cursor:pointer">✕</span></div>
-<p style="color:#aaa;font-size:13px">Pencet mic, ngomong contoh: 'Panen 12 kilo Blok B'</p>
-<button class="mic" onclick="document.getElementById('st').innerText='Merekam... ngomong sekarang';setTimeout(()=>{document.getElementById('res').innerText='Panen 12 kilo Blok B';document.getElementById('st').innerText='Selesai ✓'},2000)">🎤</button>
-<p class="center goldtxt" id="st">Belum merekam...</p>
-<div style="background:#0a0a0a;border:1px solid #222;border-radius:12px;padding:12px"><b>Hasil: <span class="green" id="res">Belum ada</span></b><br><small style="color:#888">Angka di atas bakal berubah otomatis.</small></div>
-<div class="row"><button onclick="closeVoice()">← KEMBALI</button><button onclick="document.getElementById('res').innerText='Belum ada';document.getElementById('st').innerText='Belum merekam...'">↺ ULANGI</button><button onclick="document.getElementById('res').innerText='Belum ada';document.getElementById('st').innerText='Belum merekam...'">↺ RESET AWAL</button></div>
-<div class="btn gold" style="margin-top:12px" onclick="closeVoice()">SIMPAN & TUTUP →</div>
-</div></div>
-<script>function openVoice(){document.getElementById('voice').classList.add('open')}function closeVoice(){document.getElementById('voice').classList.remove('open')}</script>
-  <script>
-// TAMBALAN MALAM INI - BIKIN SEMUA .app HIDUP
-function ngomong2(t){try{var u=new SpeechSynthesisUtterance(t);u.lang='id-ID';speechSynthesis.speak(u);}catch(e){}}
-var WACENG="6289669447121";
-function isiApp2(n){
-  if(n.includes("WA Order")||n.includes("Jual Kopi")){window.open("https://wa.me/"+WACENG+"?text="+encodeURIComponent("Halo Cengkudu, saya mau order kopi"),"_blank");return;}
-  if(n.includes("Cuaca")){alert("CUACA\nSiang 30°C, Malam 16°C\nCerah, cocok jemur.");ngomong2("Cuaca siang 30 derajat, malam 16 derajat, cocok jemur.");return;}
-  if(n.includes("Harga")){alert("HARGA KOPI\nRobusta 800 Mdpl\nRp 85.000 / 500gr");ngomong2("Harga kopi 85 ribu per 500 gram.");return;}
-  if(n.includes("Petani")){alert("PETANI\n122 Petani\nPak RT - Blok C - 820 Kg");ngomong2("122 petani, Pak RT paling banyak.");return;}
-  if(n.includes("Batch")){alert("BATCH QR\nCC-BTA-2026-001\nQR aktif");ngomong2("Batch aktif.");return;}
-  alert(n.toUpperCase()+"\n\nSudah aktif.\n7 KG hari ini, 21.210 Kg total, 122 Petani.");ngomong2(n+" dibuka.");
+
+<!-- VOICE PANEN - JAGOAN CUMA 1 -->
+<div id="tab-panen" class="hidden">
+<div class="card"><span class="badge">JAGOAN ⭐ CUMA 1</span><h3>🎤 Voice Panen</h3><p>Beneran ngomong, beneran nyatet panen. Gak usah ngetik.</p>
+<button class="gold" onclick="mulaiVoice()">🎤 MULAI NGOMONG - CATAT PANEN</button>
+<p id="hasilVoice" style="background:#111;padding:10px;border-radius:10px">Hasil omongan lu muncul di sini...</p>
+<label>Nama Petani</label><input id="namaPetani" placeholder="Contoh: Pak Jarwo">
+<label>Blok</label><select id="blokPanen"><option>Blok A</option><option>Blok B</option><option>Blok C</option></select>
+<label>Berat KG</label><input id="kgPanen" type="number" placeholder="Contoh: 15">
+<button class="gold" onclick="simpanPanen()">SIMPAN PANEN</button><p id="notifPanen"></p>
+</div>
+</div>
+
+<!-- EDUKASI -->
+<div id="tab-edukasi" class="hidden">
+<div class="card"><h3>📚 Edukasi - Pasca Panen Natural Process</h3><p><b>1. Petik merah</b> - Petik yang merah aja, yang ijo jangan.</p><p><b>2. Jemur full matahari</b> - Jemur langsung, jangan di tempat teduh.</p><p><b>3. Bolak-balik biar rata</b> - Tiap 2 jam dibolak-balik.</p><p style="background:#ffd700;color:#000;padding:10px;border-radius:10px;font-weight:800">TARGET: Sampai kadar air 14% untuk kopi robusta</p></div>
+</div>
+
+<!-- CUACA TAB - LANGSUNG, BUKAN WA -->
+<div id="tab-cuaca" class="hidden">
+<div class="card"><h3>🌤️ Cuaca - Banyumas</h3><p style="font-size:30px">☀️ Cerah</p><p>Suhu: <b>28°C</b> - Cocok jemur</p><p>Saran: <b>Jemur full matahari, bolak-balik biar rata</b></p><p>Besok: <b>Cerah, lanjut jemur sampai 14%</b></p></div>
+</div>
+
+<!-- OFFLINE TAB - LANGSUNG, BUKAN WA -->
+<div id="tab-offline" class="hidden">
+<div class="card"><h3>📴 Offline Mode</h3><p>Status: <b style="color:#25D366">● Mode Offline AKTIF</b></p><p>Gak ada sinyal? Tetep bisa nyatet panen. Nanti kalo ada sinyal, otomatis ke-sync.</p><p>Data tersimpan: <b>3 catatan nunggu sync</b></p><button class="gold" onclick="showTab('panen',null)">Coba Catat Panen Offline</button></div>
+</div>
+
+<!-- 20 APP / 11 PERBAIKAN -->
+<div id="tab-apps" class="hidden">
+<div class="card"><h3>1. Batch QR</h3><p>CONTOH - Batch #12, QR siap scan</p><button class="gold" onclick="alert('QR Batch #12 siap scan')">LIHAT QR BATCH #12</button></div>
+<div class="card"><h3>2. Blok Kebun</h3><p>CONTOH - 12 Blok, Blok A paling banyak</p></div>
+<div class="card"><h3>3. Petani</h3><p>CONTOH - 122 Petani terdaftar</p></div>
+<div class="card"><h3>4. Harga Kopi</h3><p>Harga Robusta Hari Ini: <b class="big">Rp 35.000 / KG</b></p><button class="green" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau tanya harga kopi Cengkudu','_blank')">Tanya via WA</button></div>
+<div class="card"><h3>5. Laporan</h3><p>CONTOH - Laporan minggu ini 58 KG</p></div>
+<div class="card"><h3>6. Analitik</h3><p>CONTOH - Grafik naik 3 hari 📈📈📈</p><p>Senin 15 KG | Selasa 19 KG | Rabu 24 KG</p></div>
+<div class="card"><h3>7. Roasting</h3><p>CONTOH - Medium Roast 200°C 12 menit</p></div>
+<div class="card"><h3>8. Jemur</h3><p>CONTOH - Jemur hari ke-2, sisa 18%</p><p>Target: 14% - Kurang 4% lagi, lanjut jemur!</p></div>
+<div class="card"><h3>9. Fermentasi</h3><p>CONTOH - Fermentasi Robusta, 2x24 jam + 6 jam, udah cukup. Bau buahnya keluar, gak asem.</p></div>
+<div class="card"><h3>10. Peta Blok</h3><p>CONTOH - Peta Blok A deket sungai</p><p>📍 Blok A - Deket Sungai | Blok B - Deket Jalan | Blok C - Atas Bukit</p></div>
+<div class="card"><h3>11. Leaderboard 🏆</h3><p>🥇 Juara 1 Pak Jarwo</p><p>🥈 Juara 2 Pak Artim</p><p>🥉 Juara 3 Mas Eka</p></div>
+
+<div class="card"><h3>🛒 Jual Kopi</h3><button class="green" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau beli kopi Cengkudu','_blank')">BELI KOPI - WA</button></div>
+<div class="card"><h3>📦 WA Order</h3><button class="green" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau order kopi','_blank')">WA ORDER</button></div>
+</div>
+
+</div>
+<script>
+function showTab(id,btn){
+document.querySelectorAll('[id^="tab-"]').forEach(e=>e.classList.add('hidden'));
+document.getElementById('tab-'+id).classList.remove('hidden');
+if(btn){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+window.scrollTo(0,0);
 }
-document.querySelectorAll(".app").forEach(function(el){el.style.cursor="pointer";el.onclick=function(){isiApp2(el.innerText||"App");};});
+function mulaiVoice(){
+var out=document.getElementById('hasilVoice');
+if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){out.innerText='HP lu belum support voice, ketik manual aja di bawah.';return;}
+var Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
+var r=new Rec(); r.lang='id-ID'; r.start(); out.innerText='Dengerin... ngomong sekarang...';
+r.onresult=function(e){var t=e.results[0][0].transcript; out.innerText='Lu ngomong: '+t; document.getElementById('kgPanen').value=t.replace(/[^0-9]/g,'');};
+}
+function simpanPanen(){
+var n=document.getElementById('namaPetani').value||'Petani';
+var kg=document.getElementById('kgPanen').value||'0';
+document.getElementById('notifPanen').innerText='✅ Tersimpan: '+n+' - '+kg+' KG - Blok '+document.getElementById('blokPanen').value;
+}
 </script>
-</body></html>
+</body>
+</html>
