@@ -3,109 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CENGKUDU-OS v9.5 - FIX</title>
+<title>CENGKUDU-OS v9.4</title>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:system-ui,Arial;background:#0f1a12;color:#fff}
-header{padding:20px;text-align:center;background:#1a2e20}
-h1{margin:0;font-size:26px;color:#ffd700} .sub{color:#ccc;font-size:13px}
-.nav{display:flex;gap:8px;padding:10px;overflow:auto;background:#111;position:sticky;top:0;z-index:10}
-.nav button{white-space:nowrap;padding:10px 14px;border:0;border-radius:20px;background:#222;color:#fff;font-weight:700;cursor:pointer}
-.nav button.active{background:#ffd700;color:#000}
-.wrap{padding:14px;padding-bottom:90px;max-width:700px;margin:auto}
-.card{background:#1e3325;border:1px solid #2f4d3a;border-radius:14px;padding:14px;margin-bottom:12px}
-.card h3{margin:0 0 6px} .big{font-size:22px;font-weight:800;color:#ffd700}
-.gold{background:#ffd700;color:#000;border:0;padding:14px;width:100%;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer}
-.green{background:#25D366;color:#000;border:0;padding:12px;width:100%;border-radius:10px;font-weight:800;cursor:pointer}
-input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#fff;margin:6px 0}
-.badge{display:inline-block;background:#ffd700;color:#000;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:800}
-.hidden{display:none} .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #333}
-</style>
-</head>
-<body>
-<header><h1>CENGKUDU-OS v9.5</h1><div class="sub">CENGKUDU 800 MDPL - BANYUMAS | FIX CHECKLIST</div></header>
-
-<div class="nav">
-<button onclick="showTab('dashboard',this)" class="active">Dashboard</button>
-<button onclick="showTab('panen',this)">🎤 Voice Panen ⭐</button>
-<button onclick="showTab('edukasi',this)">Edukasi</button>
-<button onclick="showTab('cuaca',this)">Cuaca</button>
-<button onclick="showTab('offline',this)">Offline Mode</button>
-<button onclick="showTab('apps',this)">20 APP</button>
-</div>
-
-<div class="wrap">
-
-<!-- DASHBOARD TAB - LANGSUNG, BUKAN WA -->
-<div id="tab-dashboard">
-<div class="card"><h3>📊 Dashboard</h3><p>Laporan minggu ini: <b class="big">58 KG</b></p><div class="row"><span>Petani terdaftar</span><b>122 Petani</b></div><div class="row"><span>Blok Kebun</span><b>12 Blok, Blok A paling banyak</b></div><div class="row"><span>Jemur hari ini</span><b>Hari ke-2, sisa 18%</b></div></div>
-<button class="gold" onclick="showTab('apps',null)">LIHAT 20 APP</button>
-</div>
-
-<!-- VOICE PANEN - JAGOAN CUMA 1 -->
-<div id="tab-panen" class="hidden">
-<div class="card"><span class="badge">JAGOAN ⭐ CUMA 1</span><h3>🎤 Voice Panen</h3><p>Beneran ngomong, beneran nyatet panen. Gak usah ngetik.</p>
-<button class="gold" onclick="mulaiVoice()">🎤 MULAI NGOMONG - CATAT PANEN</button>
-<p id="hasilVoice" style="background:#111;padding:10px;border-radius:10px">Hasil omongan lu muncul di sini...</p>
-<label>Nama Petani</label><input id="namaPetani" placeholder="Contoh: Pak Jarwo">
-<label>Blok</label><select id="blokPanen"><option>Blok A</option><option>Blok B</option><option>Blok C</option></select>
-<label>Berat KG</label><input id="kgPanen" type="number" placeholder="Contoh: 15">
-<button class="gold" onclick="simpanPanen()">SIMPAN PANEN</button><p id="notifPanen"></p>
-</div>
-</div>
-
-<!-- EDUKASI -->
-<div id="tab-edukasi" class="hidden">
-<div class="card"><h3>📚 Edukasi - Pasca Panen Natural Process</h3><p><b>1. Petik merah</b> - Petik yang merah aja, yang ijo jangan.</p><p><b>2. Jemur full matahari</b> - Jemur langsung, jangan di tempat teduh.</p><p><b>3. Bolak-balik biar rata</b> - Tiap 2 jam dibolak-balik.</p><p style="background:#ffd700;color:#000;padding:10px;border-radius:10px;font-weight:800">TARGET: Sampai kadar air 14% untuk kopi robusta</p></div>
-</div>
-
-<!-- CUACA TAB - LANGSUNG, BUKAN WA -->
-<div id="tab-cuaca" class="hidden">
-<div class="card"><h3>🌤️ Cuaca - Banyumas</h3><p style="font-size:30px">☀️ Cerah</p><p>Suhu: <b>28°C</b> - Cocok jemur</p><p>Saran: <b>Jemur full matahari, bolak-balik biar rata</b></p><p>Besok: <b>Cerah, lanjut jemur sampai 14%</b></p></div>
-</div>
-
-<!-- OFFLINE TAB - LANGSUNG, BUKAN WA -->
-<div id="tab-offline" class="hidden">
-<div class="card"><h3>📴 Offline Mode</h3><p>Status: <b style="color:#25D366">● Mode Offline AKTIF</b></p><p>Gak ada sinyal? Tetep bisa nyatet panen. Nanti kalo ada sinyal, otomatis ke-sync.</p><p>Data tersimpan: <b>3 catatan nunggu sync</b></p><button class="gold" onclick="showTab('panen',null)">Coba Catat Panen Offline</button></div>
-</div>
-
-<!-- 20 APP / 11 PERBAIKAN -->
-<div id="tab-apps" class="hidden">
-<div class="card"><h3>1. Batch QR</h3><p>CONTOH - Batch #12, QR siap scan</p><button class="gold" onclick="alert('QR Batch #12 siap scan')">LIHAT QR BATCH #12</button></div>
-<div class="card"><h3>2. Blok Kebun</h3><p>CONTOH - 12 Blok, Blok A paling banyak</p></div>
-<div class="card"><h3>3. Petani</h3><p>CONTOH - 122 Petani terdaftar</p></div>
-<div class="card"><h3>4. Harga Kopi</h3><p>Harga Robusta Hari Ini: <b class="big">Rp 35.000 / KG</b></p><button class="green" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau tanya harga kopi Cengkudu','_blank')">Tanya via WA</button></div>
-<div class="card"><h3>5. Laporan</h3><p>CONTOH - Laporan minggu ini 58 KG</p></div>
-<div class="card"><h3>6. Analitik</h3><p>CONTOH - Grafik naik 3 hari 📈📈📈</p><p>Senin 15 KG | Selasa 19 KG | Rabu 24 KG</p></div>
-<div class="card"><h3>7. Roasting</h3><p>CONTOH - Medium Roast 200°C 12 menit</p></div>
-<div class="card"><h3>8. Jemur</h3><p>CONTOH - Jemur hari ke-2, sisa 18%</p><p>Target: 14% - Kurang 4% lagi, lanjut jemur!</p></div>
-<div class="card"><h3>9. Fermentasi</h3><p>CONTOH - Fermentasi Robusta, 2x24 jam + 6 jam, udah cukup. Bau buahnya keluar, gak asem.</p></div>
-<div class="card"><h3>10. Peta Blok</h3><p>CONTOH - Peta Blok A deket sungai</p><p>📍 Blok A - Deket Sungai | Blok B - Deket Jalan | Blok C - Atas Bukit</p></div>
-<div class="card"><h3>11. Leaderboard 🏆</h3><p>🥇 Juara 1 Pak Jarwo</p><p>🥈 Juara 2 Pak Artim</p><p>🥉 Juara 3 Mas Eka</p></div>
-
-<div class="card"><h3>🛒 Jual Kopi</h3><button class="green" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau beli kopi Cengkudu','_blank')">BELI KOPI - WA</button></div>
-<div class="card"><h3>📦 WA Order</h3><button class="green" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau order kopi','_blank')">WA ORDER</button></div>
-</div>
-
-</div>
-<script>
-function showTab(id,btn){
-document.querySelectorAll('[id^="tab-"]').forEach(e=>e.classList.add('hidden'));
-document.getElementById('tab-'+id).classList.remove('hidden');
-if(btn){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
-window.scrollTo(0,0);
-}
-function mulaiVoice(){
-var out=document.getElementById('hasilVoice');
-if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){out.innerText='HP lu belum support voice, ketik manual aja di bawah.';return;}
-var Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-var r=new Rec(); r.lang='id-ID'; r.start(); out.innerText='Dengerin... ngomong sekarang...';
-r.onresult=function(e){var t=e.results[0][0].transcript; out.innerText='Lu ngomong: '+t; document.getElementById('kgPanen').value=t.replace(/[^0-9]/g,'');};
-}
-function simpanPanen(){
-var n=document.getElementById('namaPetani').value||'Petani';
-var kg=document.getElementById('kgPanen').value||'0';
-document.getElementById('notifPanen').innerText='✅ Tersimpan: '+n+' - '+kg+' KG - Blok '+document.getElementById('blokPanen').value;
-}
-</script>
-</body>
-</html>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial;background:#0a0a0a;color:#fff;padding-bottom:80px}
+.top{padding:16px}.pill{display:inline-block;border:1px solid #333;padding:6px 12px;border-radius:20px;font-size:12px;color:#ccc}
+.small{color:#888;font-size:12px;letter-spacing:1px;margin-top:8px}
+h1{font-size:42px;line-height:1;margin:10px 0 0}h1 span{color:#e8d5a3;display:block}
+.desc{color:#aaa;font-size:14px;line-height:1.5;margin:14px 0}.desc b{color:#fff}
+.btnrow{display:flex;gap:10px}.btn{flex:1;padding:14px;border-radius:12px;border:0;font-weight:900;font-size:15px;cursor:pointer}
+.gold{background:linear-gradient(#f7e3a0,#d9b45a);color:#000}.outline{background:transparent;border:1px solid #444;color:#fff}
+.sync{color:#25D366;font-size:13px;margin:14px 0}.sync b{color:#fff;margin-left:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
+.card{background:#151515;border:1px solid #222;border-radius:16px;padding:14px}
+.card .lab{color:#888;font-size:13px}.card .val{color:#2ec4ff;font-size:28px;font-weight:900;margin:6px 0}.card .sub{color:#777;font-size:12px}
+h2{padding:0 16px;font-size:22px}.sub2{padding:0 16px;color:#888;margin-top:-8px}
+.gridApp{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
+.app{background:#151515;border:1px solid #222;border-radius:14px;padding:14px;cursor:pointer}
+.app.goldb{border-color:#d9b45a}.app h3{margin:0;font-size:16px}.app p{margin:4px 0 0;color:#888;font-size:12px}
+.detail{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:16px;margin:14px 16px;display:none}
+.detail h3{margin-top:0}.detail p{color:#ccc;line-height:1.6;font-size:14px}
+.goldbtn{background:#ffd700;color:#000;border:0;padding:12px;width:100%;border-radius:10px;font-weight:900;cursor:pointer;margin-top:8px}
+.greenbtn{background:#25D366;color:#000;border:0;padding:12px;width:100%;border-radius:10px
