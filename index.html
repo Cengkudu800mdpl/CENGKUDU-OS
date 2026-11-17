@@ -23,4 +23,82 @@ h2{padding:0 16px;font-size:22px}.sub2{padding:0 16px;color:#888;margin-top:-8px
 .detail{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:16px;margin:14px 16px;display:none}
 .detail h3{margin-top:0}.detail p{color:#ccc;line-height:1.6;font-size:14px}
 .goldbtn{background:#ffd700;color:#000;border:0;padding:12px;width:100%;border-radius:10px;font-weight:900;cursor:pointer;margin-top:8px}
-.greenbtn{background:#25D366;color:#000;border:0;padding:12px;width:100%;border-radius:10px
+.greenbtn{background:#25D366;color:#000;border:0;padding:12px;width:100%;border-radius:10px;font-weight:900;cursor:pointer;margin-top:8px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#111;color:#fff;margin:6px 0}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#111;display:flex;border-top:1px solid #222;padding:12px 0;z-index:20}
+.bottom button{flex:1;background:none;border:0;color:#aaa;font-weight:700;cursor:pointer}.bottom button.active{color:#e8d5a3}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div id="page-dashboard">
+<div class="top">
+<span class="pill">CENGKUDU-OS v9.4</span>
+<div class="small">CENGKUDU LIQUIT AKR • BANYUMAS 800 MDPL • FUTURE OS</div>
+<h1>PULANG<span>KE MASA DEPAN</span></h1>
+<p class="desc">An Offline-First OS for Coffee Farmers. Voice to Data. Harvest to Market. Farm to Future. Dari kebun 800 mdpl, untuk dunia.<br><br>Voice to Data. Harvest to Market.<br><b>Ngomong jadi angka. Angka jadi duit.</b></p>
+<div class="btnrow"><button class="btn gold" onclick="showPage('apps')">LIHAT 20 APP</button><button class="btn outline" onclick="window.open('https://wa.me/6281234567890?text=Halo, mau beli kopi Cengkudu','_blank')">BELI KOPI - WA</button></div>
+<div class="sync">● Online • Synced <b>CC-BTA-2026-001</b></div>
+</div>
+<div class="grid2">
+<div class="card"><div class="lab">Harvest Today</div><div class="val">7 KG</div><div class="sub">Blok C - Bawah • Dekat Kali</div></div>
+<div class="card"><div class="lab">Total Panen</div><div class="val">21,210 Kg</div><div class="sub">CC-BTA-2026-001 • Synced</div></div>
+<div class="card"><div class="lab">Farmers</div><div class="val">122<br>Farmers</div><div class="sub">Banyumas • 800 Mdpl</div></div>
+<div class="card"><div class="lab">Blok BE</div><div class="val">5 Kg</div><div class="sub">Sektor 3 • Ready</div></div>
+</div>
+<h2>20 APP</h2><p class="sub2">Pilih APP yang mau dibuka.</p>
+<div class="gridApp" id="gridHome"></div>
+</div>
+<div id="page-apps" class="hidden"><h2 style="margin-top:16px">20 APP</h2><p class="sub2">Pilih APP yang mau dibuka.</p><div class="gridApp" id="gridApps"></div></div>
+<div id="page-petani" class="hidden"><div style="padding:16px"><h2 style="padding:0">Petani - 122 Petani</h2><div class="card"><p>🥇 Juara 1 Pak Jarwo</p><p>🥈 Juara 2 Pak Artim</p><p>🥉 Juara 3 Mas Eka</p><p>CONTOH - 122 Petani terdaftar</p></div></div></div>
+<div id="detailBox" class="detail"></div>
+<div class="bottom"><button id="b-dashboard" class="active" onclick="showPage('dashboard')">Dashboard</button><button id="b-apps" onclick="showPage('apps')">20 App</button><button id="b-petani" onclick="showPage('petani')">Petani</button></div>
+<script>
+var apps=[
+{id:'panen',t:'🎤 Voice Panen ⭐',s:'JAGOAN',d:'Ngomong jadi angka',gold:true},
+{id:'dashboard',t:'📊 Dashboard',s:'Ringkasan kebun',d:'Ringkasan kebun'},
+{id:'batch',t:'⬜ Batch QR',s:'QR per batch',d:'QR per batch'},
+{id:'cuaca',t:'🌦️ Cuaca',s:'Cuaca kebun',d:'Cuaca kebun'},
+{id:'blok',t:'🌿 Blok Kebun',s:'Data blok',d:'Data blok'},
+{id:'petani',t:'🧑‍🌾 Petani',s:'122 Petani',d:'122 Petani'},
+{id:'harga',t:'💰 Harga Kopi',s:'Harga hari ini',d:'Harga hari ini'},
+{id:'jual',t:'🛒 Jual Kopi',s:'Jual ke pasar',d:'Jual ke pasar'},
+{id:'laporan',t:'📄 Laporan',s:'Laporan panen',d:'Laporan panen'},
+{id:'analitik',t:'📈 Analitik',s:'Grafik panen',d:'Grafik panen'},
+{id:'roasting',t:'🔥 Roasting',s:'Profil sangrai',d:'Profil sangrai'},
+{id:'jemur',t:'☀️ Jemur',s:'Proses jemur',d:'Proses jemur'},
+{id:'fermentasi',t:'🫙 Fermentasi',s:'Proses fermentasi',d:'Proses fermentasi'},
+{id:'offline',t:'📴 Offline Mode',s:'Tanpa internet',d:'Tanpa internet'},
+{id:'peta',t:'🗺️ Peta Blok',s:'Peta kebun',d:'Peta kebun'},
+{id:'waorder',t:'💬 WA Order',s:'Order via WA',d:'Order via WA'},
+{id:'leader',t:'🏆 Leaderboard',s:'Petani teratas',d:'Petani teratas'},
+{id:'edukasi',t:'📚 Edukasi ⭐',s:'JAGOAN',d:'Belajar kopi',gold:true}
+];
+function render(){var h='';apps.forEach(a=>{h+='<div class="app '+(a.gold?'goldb':'')+'" onclick="openApp(\''+a.id+'\')"><h3>'+a.t+'</h3><p>'+a.s+'</p><p style="color:#666">'+a.d+'</p></div>'});document.getElementById('gridHome').innerHTML=h;document.getElementById('gridApps').innerHTML=h;}
+function showPage(p){document.getElementById('page-dashboard').classList.toggle('hidden',p!=='dashboard');document.getElementById('page-apps').classList.toggle('hidden',p!=='apps');document.getElementById('page-petani').classList.toggle('hidden',p!=='petani');document.getElementById('detailBox').style.display='none';document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));document.getElementById('b-'+p).classList.add('active');window.scrollTo(0,0);}
+function openApp(id){var b=document.getElementById('detailBox');b.style.display='block';window.scrollTo(0,b.offsetTop-20);
+if(id==='panen'){b.innerHTML='<h3>🎤 Voice Panen ⭐ JAGOAN</h3><p>Beneran ngomong, beneran nyatet panen. Gak usah ngetik.</p><button class="goldbtn" onclick="mulaiVoice()">🎤 MULAI NGOMONG - CATAT PANEN</button><p id="hasilVoice" style="background:#111;padding:10px;border-radius:10px">Hasil omongan lu muncul di sini...</p><label>Nama Petani</label><input id="namaPetani" placeholder="Contoh: Pak Jarwo"><label>Blok</label><select id="blokPanen"><option>Blok A</option><option>Blok B</option><option>Blok C</option></select><label>Berat KG</label><input id="kgPanen" type="number" placeholder="Contoh: 15"><button class="goldbtn" onclick="simpanPanen()">SIMPAN PANEN</button><p id="notifPanen"></p>';}
+else if(id==='dashboard'){b.innerHTML='<h3>📊 Dashboard - Buka di layar, BUKAN WA</h3><p>Laporan minggu ini: <b style="color:#ffd700;font-size:20px">58 KG</b></p><p>Petani: 122 Petani<br>Blok: 12 Blok, Blok A paling banyak<br>Jemur: Hari ke-2, sisa 18%</p>';}
+else if(id==='cuaca'){b.innerHTML='<h3>🌦️ Cuaca - Buka di layar, BUKAN WA</h3><p>☀️ Cerah - 28°C - Cocok jemur</p><p>Saran: Jemur full matahari, bolak-balik biar rata</p><p>Besok: Cerah, lanjut jemur sampai 14%</p>';}
+else if(id==='offline'){b.innerHTML='<h3>📴 Offline Mode - Buka di layar, BUKAN WA</h3><p>Status: <b style="color:#25D366">● Mode Offline AKTIF</b></p><p>Gak ada sinyal? Tetep bisa nyatet panen. Nanti kalo ada sinyal, otomatis ke-sync.</p><p>Data tersimpan: 3 catatan nunggu sync</p><button class="goldbtn" onclick="openApp(\'panen\')">Coba Catat Panen Offline</button>';}
+else if(id==='edukasi'){b.innerHTML='<h3>📚 Edukasi - Pasca Panen Natural Process</h3><p>1. Petik merah - yang ijo jangan<br>2. Jemur full matahari<br>3. Bolak-balik biar rata</p><p style="background:#ffd700;color:#000;padding:10px;border-radius:10px;font-weight:800">TARGET: Sampai kadar air 14% untuk kopi robusta</p>';}
+else if(id==='batch'){b.innerHTML='<h3>Batch QR</h3><p>CONTOH - Batch #12, QR siap scan</p><button class="goldbtn" onclick="alert(\'QR Batch #12 siap scan\')">LIHAT QR BATCH #12</button>';}
+else if(id==='blok'){b.innerHTML='<h3>Blok Kebun</h3><p>CONTOH - 12 Blok, Blok A paling banyak</p>';}
+else if(id==='petani'){b.innerHTML='<h3>Petani</h3><p>CONTOH - 122 Petani terdaftar</p>';}
+else if(id==='harga'){b.innerHTML='<h3>Harga Kopi</h3><p>Harga Robusta: <b>Rp 35.000 / KG</b></p><button class="greenbtn" onclick="window.open(\'https://wa.me/6281234567890?text=Halo, mau tanya harga kopi Cengkudu\',\'_blank\')">Tanya via WA</button>';}
+else if(id==='jual'){window.open('https://wa.me/6281234567890?text=Halo, mau beli kopi Cengkudu','_blank');b.innerHTML='<h3>Jual Kopi</h3><p>Kebuka WA, Komandan. Ini emang harus ke WA.</p>';}
+else if(id==='waorder'){window.open('https://wa.me/6281234567890?text=Halo, mau order kopi','_blank');b.innerHTML='<h3>WA Order</h3><p>Kebuka WA, Komandan. Ini emang harus ke WA.</p>';}
+else if(id==='laporan'){b.innerHTML='<h3>Laporan</h3><p>CONTOH - Laporan minggu ini 58 KG</p>';}
+else if(id==='analitik'){b.innerHTML='<h3>Analitik</h3><p>CONTOH - Grafik naik 3 hari 📈📈📈</p><p>Senin 15 KG | Selasa 19 KG | Rabu 24 KG</p>';}
+else if(id==='roasting'){b.innerHTML='<h3>Roasting</h3><p>CONTOH - Medium Roast 200°C 12 menit</p>';}
+else if(id==='jemur'){b.innerHTML='<h3>Jemur</h3><p>CONTOH - Jemur hari ke-2, sisa 18%</p><p>Target: 14% - Kurang 4% lagi, lanjut jemur!</p>';}
+else if(id==='fermentasi'){b.innerHTML='<h3>Fermentasi</h3><p>CONTOH - Fermentasi Robusta, 2x24 jam + 6 jam, udah cukup. Bau buahnya keluar, gak asem.</p>';}
+else if(id==='peta'){b.innerHTML='<h3>Peta Blok</h3><p>CONTOH - Peta Blok A deket sungai</p><p>📍 Blok A - Deket Sungai | Blok B - Deket Jalan | Blok C - Atas Bukit</p>';}
+else if(id==='leader'){b.innerHTML='<h3>Leaderboard 🏆</h3><p>🥇 Juara 1 Pak Jarwo<br>🥈 Juara 2 Pak Artim<br>🥉 Juara 3 Mas Eka</p>';}
+}
+function mulaiVoice(){var out=document.getElementById('hasilVoice');if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){out.innerText='HP lu belum support voice, ketik manual aja di bawah.';return;}var Rec=window.SpeechRecognition||window.webkitSpeechRecognition;var r=new Rec();r.lang='id-ID';r.start();out.innerText='Dengerin... ngomong sekarang...';r.onresult=function(e){var t=e.results[0][0].transcript;out.innerText='Lu ngomong: '+t;document.getElementById('kgPanen').value=t.replace(/[^0-9]/g,'');};}
+function simpanPanen(){var n=document.getElementById('namaPetani').value||'Petani';var kg=document.getElementById('kgPanen').value||'0';document.getElementById('notifPanen').innerText='✅ Tersimpan: '+n+' - '+kg+' KG - Blok '+document.getElementById('blokPanen').value;}
+render();
+</script>
+</body>
+</html>
