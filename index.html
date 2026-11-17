@@ -66,4 +66,18 @@ h1 span{color:#e8d9a8}.sub{color:#aaa;font-size:14px;line-height:1.5;max-width:5
 <div class="btn gold" style="margin-top:12px" onclick="closeVoice()">SIMPAN & TUTUP →</div>
 </div></div>
 <script>function openVoice(){document.getElementById('voice').classList.add('open')}function closeVoice(){document.getElementById('voice').classList.remove('open')}</script>
+  <script>
+// TAMBALAN MALAM INI - BIKIN SEMUA .app HIDUP
+function ngomong2(t){try{var u=new SpeechSynthesisUtterance(t);u.lang='id-ID';speechSynthesis.speak(u);}catch(e){}}
+var WACENG="6289669447121";
+function isiApp2(n){
+  if(n.includes("WA Order")||n.includes("Jual Kopi")){window.open("https://wa.me/"+WACENG+"?text="+encodeURIComponent("Halo Cengkudu, saya mau order kopi"),"_blank");return;}
+  if(n.includes("Cuaca")){alert("CUACA\nSiang 30°C, Malam 16°C\nCerah, cocok jemur.");ngomong2("Cuaca siang 30 derajat, malam 16 derajat, cocok jemur.");return;}
+  if(n.includes("Harga")){alert("HARGA KOPI\nRobusta 800 Mdpl\nRp 85.000 / 500gr");ngomong2("Harga kopi 85 ribu per 500 gram.");return;}
+  if(n.includes("Petani")){alert("PETANI\n122 Petani\nPak RT - Blok C - 820 Kg");ngomong2("122 petani, Pak RT paling banyak.");return;}
+  if(n.includes("Batch")){alert("BATCH QR\nCC-BTA-2026-001\nQR aktif");ngomong2("Batch aktif.");return;}
+  alert(n.toUpperCase()+"\n\nSudah aktif.\n7 KG hari ini, 21.210 Kg total, 122 Petani.");ngomong2(n+" dibuka.");
+}
+document.querySelectorAll(".app").forEach(function(el){el.style.cursor="pointer";el.onclick=function(){isiApp2(el.innerText||"App");};});
+</script>
 </body></html>
