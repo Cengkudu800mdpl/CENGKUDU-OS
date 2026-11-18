@@ -111,25 +111,33 @@ if(inp){
       setTimeout(()=> addMsg(jawab(q), false), 400);
     }
   });
-}
-   // PATCH 3 - GALAK, dengerin semua klik
-function kirimGalak(){
-  const allInp = document.querySelectorAll('input');
-  const inp2 = allInp[allInp.length - 1];
-  if(!inp2 || !inp2.value.trim()) return;
+  
+async function kirimGalak(){
+  const inp2 = document.querySelector('input');
   const q = inp2.value.trim();
+  if(!q) return;
   inp2.value = '';
-  const chatBox = document.querySelector('.chat') || document.body;
+  const chatBox = document.querySelector('.chatBox, .chat, #chatBox') || document.body;
   const b1 = document.createElement('div');
   b1.textContent = q;
-  b1.style.cssText = 'background:#8B5A2B;color:#fff;padding:14px;border-radius:14px;margin:10px 0;text-align:right';
+  b1.style.cssText = 'background:#8B5A2B;color:#fff;padding:10px;border-radius:12px;margin:8px;';
   chatBox.appendChild(b1);
   const b2 = document.createElement('div');
-  b2.textContent = 'Siap! Aku udah terima: ' + q + '. Mau dibikinin video pitch durasi berapa? Reels / TikTok / YT?';
-  b2.style.cssText = 'background:#2A211C;color:#fff;padding:14px;border-radius:14px;margin:10px 0';
-  setTimeout(()=> chatBox.appendChild(b2), 300);
+  b2.textContent = 'Muse lagi mikir...';
+  b2.style.cssText = 'background:#2A211C;color:#fff;padding:10px;border-radius:12px;margin:8px;';
+  chatBox.appendChild(b2);
+  try{
+    const r = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({message: q})});
+    const d = await r.json();
+    b2.textContent = d.reply || 'Gagal dari Muse.';
+  }catch(e){ b2.textContent = 'Gagal nyambung: ' + e.message; }
 }
-document.addEventListener('click', function(e){
+
+    
+
+
+
+
   const t = e.target.closest('div,button');
   if(t && (t.textContent.includes('➤') || t.textContent.includes('➢') || t.textContent.includes('>'))){
     kirimGalak();
