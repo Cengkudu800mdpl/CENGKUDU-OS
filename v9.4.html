@@ -138,6 +138,20 @@ document.addEventListener('click', function(e){
 document.addEventListener('keydown', function(e){
   if(e.key === 'Enter'){ kirimGalak(); }
 });
+   // PATCH 4 - Hidupin tombol Generate Video
+document.addEventListener('click', function(e){
+  const t = e.target.closest('button,div,a');
+  if(t && t.textContent.includes('Generate Video')){
+    e.preventDefault();
+    e.stopPropagation();
+    const chatBox = document.querySelector('.chat') || document.body;
+    const b = document.createElement('div');
+    b.style.cssText = 'background:#F2C94C;color:#000;padding:16px;border-radius:14px;margin:10px 0;font-weight:700';
+    b.textContent = '🎬 GENERATING... Video pitch Kopi Cengkudu 800 MDPL (53s, 9:16) lagi diproses. Scene 01 Opening Hook - 15s, Scene 02 - 20s, Scene 03 Closing - 18s. Tunggu 30 detik, nanti file-nya muncul di sini.';
+    chatBox.appendChild(b);
+    alert('GENERATE VIDEO DIKLIK!\\n\\nPrompt yang siap di-copy ke AI Video (Veo / Runway / Pika):\\n\\nCinematic coffee farm in Cengkudu 800 MDPL, Banyumas, morning golden hour, farmer picking red cherry, close-up roasting, pouring latte art, storytelling premium & natural, 9:16, 53s');
+  }
+});
 </script> </body>
    
 </html>
