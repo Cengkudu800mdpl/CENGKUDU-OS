@@ -5,51 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CENGKUDU OS v9.4 - AI Video Pitch</title>
 <style>
-*{box-sizing:border-box}body{background:#121110;color:#fff;font-family:sans-serif;margin:0;padding:0}
-.top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;flex-wrap:wrap;gap:10px;border-bottom:1px solid #222}
-.logo b{color:#e8d5a3;font-size:18px}.logo small{color:#888;display:block;font-size:11px}
-.menu{display:flex;gap:16px;font-size:13px;color:#aaa}.menu b{color:#fff;background:#2a2a2a;padding:6px 10px;border-radius:20px}
-.credits{font-size:12px;background:#2a2a2a;padding:7px 10px;border-radius:20px}
-.wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:16px;padding:16px}
-@media(max-width:800px){.wrap{grid-template-columns:1fr}}
-.card{background:#1c1a18;border:1px solid #2a2a2a;border-radius:16px;padding:16px}
-.btn{display:inline-block;background:#e8d5a3;color:#000;border:none;padding:10px 14px;border-radius:10px;font-weight:bold}
-.btn2{background:#2a2a2a;color:#fff;border:1px solid #333;padding:10px 12px;border-radius:10px}
-.chat{background:#26231f;padding:12px;border-radius:12px;margin:10px 0;font-size:14px;line-height:1.5}
-.me{background:#6b4a1f;margin-left:20%;text-align:left}
-.input{display:flex;gap:8px;margin-top:12px}.input input{flex:1;background:#26231f;border:none;color:#fff;padding:12px;border-radius:12px}
-.scene{border:1px solid #2a2a2a;border-radius:12px;padding:12px;margin:12px 0}
-.tag{display:inline-block;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:bold}.s1{background:#7c5cff}.s2{background:#2b6fff}.s3{background:#1aa86a}
-img{width:100%;border-radius:10px;object-fit:cover;height:110px}
-.flex{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}.stat{background:#26231f;padding:8px;border-radius:10px;font-size:12px}.stat b{color:#e8d5a3}
-.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.controls span{background:#2a2a2a;padding:8px 10px;border-radius:10px;font-size:12px}
-h2{margin:0 0 4px 0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#131110;color:#fff;font-family:Inter,system-ui,sans-serif;padding:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:44px;height:44px;border-radius:50%;background:#1e1a17;border:1px solid #333;display:grid;place-items:center;font-size:22px}
+.brand b{color:#e8d5a3;font-size:16px;letter-spacing:.5px}.brand small{color:#c17a4a;font-size:10px;letter-spacing:1px;display:block}
+.menu{display:flex;gap:8px;flex-wrap:wrap}.menu span{padding:8px 12px;border-radius:20px;color:#aaa;font-size:13px}.menu b{background:#25211d;color:#fff;padding:8px 14px;border-radius:20px;font-size:13px}
+.right{display:flex;align-items:center;gap:10px}.cred{background:#25211d;padding:8px 12px;border-radius:20px;font-size:13px}.avatar{width:34px;height:34px;border-radius:50%;background:#c17a4a;display:grid;place-items:center;font-weight:bold}
+.wrap{display:grid;grid-template-columns:1fr 1.35fr;gap:18px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.card{background:#1b1816;border:1px solid #292522;border-radius:16px;padding:18px}
+.h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.h h2{font-size:20px}.btn2{background:#2a2622;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px;font-size:13px}
+.chat{background:#26211d;padding:14px;border-radius:12px;margin:10px 0;font-size:14px;line-height:1.6;color:#ddd}
+.chat b{color:#fff}.me{background:#5a3d1e;margin-left:18%;color:#fff}
+.pill{display:inline-block;background:#2a2622;padding:6px 10px;border-radius:20px;font-size:12px;margin-top:6px}
+.inp{display:flex;gap:8px;background:#26211d;padding:10px;border-radius:12px;margin-top:12px}.inp input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:14px}.send{width:38px;height:38px;border-radius:50%;background:#c9a86a;border:none;font-size:18px}
+.tip{color:#888;font-size:12px;margin-top:12px;line-height:1.5}
+.sub{color:#aaa;font-size:13px;margin-bottom:12px}.gen{float:right;background:#e8c87a;color:#000;border:none;padding:9px 12px;border-radius:10px;font-weight:bold}
+.scene{border:1px solid #2e2a26;border-radius:12px;padding:12px;margin:12px 0;background:#1e1a18}
+.tag{padding:4px 8px;border-radius:6px;font-size:11px;font-weight:bold}.s1{background:#8b5cf6}.s2{background:#2f6fed}.s3{background:#1aa86a}
+.scene h3{font-size:15px;margin:8px 0}.meta{font-size:12px;color:#aaa}
+.grid2{display:grid;grid-template-columns:1fr 1.5fr;gap:12px;margin-top:10px}
+.grid2 img{width:100%;height:110px;object-fit:cover;border-radius:10px}
+.grid2 p{font-size:13px;color:#bbb;line-height:1.5}
+.bar{height:4px;background:#333;border-radius:10px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:#e8c87a;width:35%}
+.beforeafter{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}.beforeafter img{width:100%;height:90px;object-fit:cover;border-radius:10px}.beforeafter p{font-size:12px;color:#bbb;line-height:1.5}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}.m{background:#25211d;padding:10px;border-radius:10px;font-size:12px}.m b{color:#e8c87a;font-size:14px;display:block}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.controls div{background:#25211d;padding:9px 10px;border-radius:10px;font-size:12px;line-height:1.4}.controls b{font-size:12px}
 </style>
 </head>
 <body>
 <div class="top">
-<div class="logo"><b>◆ CENGKUDU OS v9.4</b><small>CENGKUDU OS • 800 mdpl • BUILT WITH MUSE SPARK</small></div>
+<div class="brand"><div class="logo">✦</div><div><b>CENGKUDU OS v9.4</b><small>CENGKUDU OS • 800 MDPL<br>BUILT WITH MUSE SPARK</small></div></div>
 <div class="menu"><b>Projects</b><span>Generations</span><span>Assets</span><span>Brand Kits</span><span>Analytics</span></div>
-<div class="credits">⚡ Credits: 120 &nbsp; 🔔 &nbsp; AR</div>
+<div class="right"><div class="cred">⚡ Credits: 120</div><span>🔔</span><div class="avatar">AR</div></div>
 </div>
 <div class="wrap">
 <div class="card">
-<h2>AI Chat ✨ &nbsp; <button class="btn2" style="float:right">+ New Chat</button></h2>
+<div class="h"><h2>AI Chat ✨</h2><button class="btn2">+ New Chat</button></div>
 <div class="chat"><b>Welcome to CENGKUDU OS v9.4 👋</b><br>I can generate AI video pitches. Tell me your product and style.</div>
 <div class="chat me"><b>Bikinin video pitch kopi Cengkudu 800 MDPL</b></div>
-<div class="chat"><b>Siap! Aku sudah buat struktur video pitch untuk kopi Cengkudu 800 MDPL.</b><br><br>Durasi total ~53s, 3 scenes, gaya storytelling premium & natural.<br><br>Gaya: Natural • Profesional • Cinematic</div>
+<div class="chat"><b>Siap! Aku sudah buat struktur video pitch untuk kopi Cengkudu 800 MDPL.</b><br><br>Durasi total ~53s, 3 scenes, gaya storytelling premium & natural.</div>
+<div><span class="pill">Gaya: Natural • Profesional • Cinematic</span></div>
 <div class="chat"><b>Kamu bisa edit tiap scene di sebelah.</b><br>Siap generate videonya?</div>
-<div class="input"><input placeholder="Tambahkan detail... e.g. target audience, tone, CTA"><button class="btn">➤</button></div>
-<p style="color:#888;font-size:12px">Pro tip: Sebutkan durasi, style, atau platform (Reels/TikTok/YT) untuk hasil lebih tepat.</p>
+<div class="inp"><input placeholder="Tambahkan detail... e.g. target audience, tone, CTA"><button class="send">➤</button></div>
+<p class="tip">Pro tip: Sebutkan durasi, style, atau platform (Reels/TikTok/YT) untuk hasil lebih tepat.</p>
 </div>
 <div class="card">
-<h2>Scene Builder &nbsp; <button class="btn2" style="float:right">↻ Regenerate</button></h2>
-<p style="color:#aaa;font-size:13px">Kopi Cengkudu 800 MDPL • 53s • 9:16 &nbsp; <button class="btn" style="float:right">▶ Generate Video</button></p>
-<div class="scene"><span class="tag s1">SCENE 01</span> Opening Hook • 15s<br><b>Hook: Keindahan Kopi Cengkudu 800 MDPL</b><div class="flex"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600"><p style="font-size:13px;color:#bbb">Visual: Drone shot kabut pagi di perkebunan kopi Cengkudu, altitude 800 MDPL, coffee trees with cherries. Text overlay<br>"Dari 800 MDPL, lahir rasa yang berbeda..."</p></div></div>
-<div class="scene"><span class="tag s2">SCENE 02</span> Before/After • 20s<br><b>Before/After: Proses & Rasa</b><div class="flex"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600"><p style="font-size:13px;color:#bbb"><b style="color:#fff">Before</b> Kopi Biasa • Asam • Kurang Body<br><b style="color:#fff">After</b> Cengkudu 800 MDPL • Smooth • Sweet • Chocolatey<br>Visual: Split screen komparasi, lalu close-up pour over brewing dengan jelas.</p></div></div>
-<div class="scene"><span class="tag s3">SCENE 03</span> Impact Metrics • 18s<br><b>Impact: Kenapa Pilih Cengkudu?</b><div class="flex"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600"><div class="stats"><div class="stat">🍃 <b>100%</b><br>Single Origin</div><div class="stat">⛰️ <b>800 MDPL</b><br>Highland</div><div class="stat">⭐ <b>4.8/5</b><br>Rating • 200+ Reviews</div></div></div><p style="font-size:13px;color:#bbb">Visual: Clean animated stats, badge "Panen Nov 2024", check ✓ : Fairtrade • Specialty Grade</p></div>
-<p>Controls:</p><div class="controls"><span>📷 Visual ▼</span><span>🎙️ Voice Over<br>ID • Female, Natural</span><span>🎵 Music<br>Ambient • Chill Coffeehouse</span><span>🎨 Brand Kit<br>Cengkudu Coffee</span><span>⚙️ Settings</span><span>⬇️ Export</span></div>
+<div class="h"><h2>Scene Builder</h2><button class="btn2">↻ Regenerate</button></div>
+<p class="sub">Kopi Cengkudu 800 MDPL • 53s • 9:16 <button class="gen">▶ Generate Video</button></p>
+<div class="scene"><span class="tag s1">SCENE 01</span> <span class="meta">Opening Hook • 15s 🕒</span><h3>Hook: Keindahan Kopi Cengkudu 800 MDPL</h3><div class="grid2"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600"><p>Visual: Drone shot kabut pagi di perkebunan kopi Cengkudu, altitude 800 MDPL, coffee trees with cherries. Text overlay<br><b style="color:#fff">"Dari 800 MDPL, lahir rasa yang berbeda..."</b></p></div><div class="bar"><i></i></div></div>
+<div class="scene"><span class="tag s2">SCENE 02</span> <span class="meta">Before/After • 20s 🕒</span><h3>Before/After: Proses & Rasa</h3><div class="beforeafter"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600"><p><b style="color:#fff">Before</b><br>Kopi Biasa • Asam • Kurang Body<br><br>Visual: Split screen komparasi, lalu close-up pour over brewing dengan jelas.</p><div><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600"><p><b style="color:#fff">After</b><br>Cengkudu 800 MDPL • Smooth • Sweet • Chocolatey</p></div></div></div>
+<div class="scene"><span class="tag s3">SCENE 03</span> <span class="meta">Impact Metrics • 18s</span><h3>Impact: Kenapa Pilih Cengkudu?</h3><div class="grid2"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600"><div class="metrics"><div class="m">🍃 <b>100%</b> Single Origin</div><div class="m">⛰️ <b>800 MDPL</b> Highland</div><div class="m">⭐ <b>4.8/5</b> Rating • 200+ Reviews</div></div></div><p style="font-size:13px;color:#bbb;margin-top:10px;line-height:1.5">Visual: Clean animated stats, badge "Panen Nov 2024", check ✓ : Fairtrade • Specialty Grade</p></div>
+<p style="font-size:13px;margin-top:10px">Controls:</p><div class="controls"><div>📷 <b>Visual ▼</b></div><div>🎙️ <b>Voice Over</b><br>ID • Female, Natural</div><div>🎵 <b>Music</b><br>Ambient • Chill Coffeehouse</div><div>🎨 <b>Brand Kit</b><br>Cengkudu Coffee</div><div>⚙️ <b>Settings</b></div><div>⬇️ <b>Export</b></div></div>
 </div>
 </div>
 </body>
