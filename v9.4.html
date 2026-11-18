@@ -62,5 +62,31 @@ body{background:#131110;color:#fff;font-family:Inter,system-ui,sans-serif;paddin
 <p style="font-size:13px;margin-top:10px">Controls:</p><div class="controls"><div>📷 <b>Visual ▼</b></div><div>🎙️ <b>Voice Over</b><br>ID • Female, Natural</div><div>🎵 <b>Music</b><br>Ambient • Chill Coffeehouse</div><div>🎨 <b>Brand Kit</b><br>Cengkudu Coffee</div><div>⚙️ <b>Settings</b></div><div>⬇️ <b>Export</b></div></div>
 </div>
 </div>
-</body>
+<script>
+const inp = document.querySelector('.inp input');
+function addMsg(text, me){
+  const d = document.createElement('div');
+  d.className = me ? 'chat me' : 'chat';
+  d.innerHTML = '<b>' + text + '</b>';
+  const inpDiv = document.querySelector('.inp');
+  inpDiv.parentNode.insertBefore(d, inpDiv);
+}
+function jawab(q){
+  q = q.toLowerCase();
+  if(q.includes('kopi') || q.includes('pitch')) return 'Siap, Komandan! AI Chat SUDAH ACTIVE. Ini jawaban baru, bukan tempelan lama. Kopi Cengkudu 800 MDPL - 3 scenes udah siap.';
+  if(q.includes('halo') || q.includes('hai')) return 'Halo, Komandan! AI Chat v9.4 udah ACTIVE sekarang.';
+  return 'Gue terima: "' + q + '". AI Chat udah ACTIVE, Komandan.';
+}
+if(inp){
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && inp.value.trim()){
+      const q = inp.value.trim();
+      addMsg(q, true);
+      inp.value = '';
+      setTimeout(()=> addMsg(jawab(q), false), 400);
+    }
+  });
+  inp.placeholder = 'Ketik disini... lalu Enter - SUDAH ACTIVE';
+}
+</script> </body>
 </html>
