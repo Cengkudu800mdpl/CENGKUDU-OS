@@ -88,5 +88,30 @@ if(inp){
   });
   inp.placeholder = 'Ketik disini... lalu Enter - SUDAH ACTIVE';
 }
+   // PATCH 2 - bikin tombol kuning bisa diklik
+const sendBtn = document.querySelector('.inp div');
+if(sendBtn){
+  sendBtn.style.cursor = 'pointer';
+  sendBtn.onclick = function(){
+    if(inp && inp.value.trim()){
+      const q = inp.value.trim();
+      addMsg(q, true);
+      inp.value = '';
+      setTimeout(()=> addMsg(jawab(q), false), 400);
+    }
+  };
+}
+// PATCH 2b - Enter di HP kadang beda, tangkep semua
+if(inp){
+  inp.addEventListener('keyup', function(e){
+    if(e.keyCode === 13 && inp.value.trim()){
+      const q = inp.value.trim();
+      addMsg(q, true);
+      inp.value = '';
+      setTimeout(()=> addMsg(jawab(q), false), 400);
+    }
+  });
+}
 </script> </body>
+   
 </html>
