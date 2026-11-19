@@ -14,44 +14,88 @@ body{background:#121212;color:#fff;padding:14px 14px 140px}
 .tabs b{background:#e8e8e8;color:#000;padding:7px 14px;border-radius:999px}
 .tabs span{opacity:.8}
 .card{background:#1e1e1e;border:1px solid #2b2b2b;border-radius:20px;padding:16px;margin-bottom:16px}
-.bubble{background:#2a2a2a;border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.5;font-size:15px}
+.bubble{background:#2a2a2a;border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.5;font-size:15px;white-space:pre-wrap;word-break:break-word}
 .bubble.me{background:#8a5a1d}
+.bubble.ai{border-left:3px solid #8a5a1d}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .tag{background:#2a2a2a;border-radius:999px;padding:6px 10px;font-size:12px}
 .input-row{display:flex;gap:10px;background:#2a2a2a;border-radius:12px;padding:8px 8px 8px 14px;align-items:center}
 .input-row input{flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:14px}
 .input-row button{background:#fff;color:#000;border:0;padding:10px 14px;border-radius:10px;font-weight:700}
+.input-row button:disabled{opacity:.5}
 .note{font-size:12px;opacity:.55;margin-top:10px;line-height:1.4}
 .scene{background:#2a2a2a;border-radius:14px;padding:14px;margin-top:12px}
 .scene b{font-size:15px}.scene p{font-size:13px;opacity:.8;margin-top:6px;line-height:1.5}
 .scene button{margin-top:10px;background:#fff;color:#000;border:0;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px}
+#status{font-size:12px;opacity:.6;margin-bottom:10px}
 </style>
 </head>
 <body>
 <div class="top"><div class="logo">✦</div><div><b>CENGKUDU<span>BUILT WITH MUSE SPARK</span></b></div></div>
 <div class="tabs"><b>Projects</b><span>Generations</span><span>Assets</span></div>
+
 <div class="card">
 <h1 style="font-size:28px;margin-bottom:14px">AI Chat 🌌</h1>
-<div class="bubble"><b>Welcome to CENGKUDU OS v9.4</b><br>Tell me your product and style.</div>
+<div id="status">● Online - Bisa tanya apa aja, bukan cuma video & Cengkudu</div>
+<div id="chat">
+<div class="bubble"><b>Welcome to CENGKUDU OS v9.4</b><br>Tanya apa aja. Video, kopi, atau di luar itu juga boleh.</div>
 <div class="bubble me"><b>Bikinin video pitch kopi Cengkudu dong.</b></div>
 <div class="bubble"><b>Siap! Aku sudah buat struktur 3 scene.</b><br><br>Durasi total ~53s, 3 scene, gaya: Natural • Professional • Sinematik</div>
-<div class="tags"><span class="tag">Gaya: Natural • Professional</span><span class="tag">Durasi: 53s</span><span class="tag">Format: 9:16</span></div>
-<div class="input-row"><input id="in" placeholder="Tulis ide video lu di sini..."><button onclick="kirim()">Kirim</button></div>
-<div class="note">Tekan Kirim untuk nambah chat. AI Chat ini demo offline, tetap jalan tanpa server.</div>
 </div>
+<div class="tags"><span class="tag">Gaya: Natural • Professional</span><span class="tag">Durasi: 53s</span><span class="tag">Format: 9:16</span></div>
+<div class="input-row"><input id="in" placeholder="Tanya apa aja di sini..." onkeydown="if(event.key==='Enter')kirim()"><button id="btn" onclick="kirim()">Kirim</button></div>
+<div class="note">Ini AI beneran, nyambung ke api/chat. Kalo API mati, tetep dibales mode offline.</div>
+</div>
+
 <div class="card">
 <div style="font-size:24px;font-weight:800">Scene Builder 🎬</div>
 <p style="font-size:14px;opacity:.8;margin-top:8px">3 Scene - Sudah siap di-generate</p>
-<div class="scene"><b>Scene 1 - Hook (0-8s)</b><p>Kebun kopi Cengkudu 800 MDPL, Banyumas. Close-up biji kopi.</p><button>Generate Scene 1</button></div>
-<div class="scene"><b>Scene 2 - Cerita (8-30s)</b><p>Petani panen, proses jemur, dan cerita 122 petani.</p><button>Generate Scene 2</button></div>
-<div class="scene"><b>Scene 3 - Closing (30-53s)</b><p>Cangkir kopi + ajakan: Pulang ke Masa Depan.</p><button>Generate Scene 3</button></div>
+<div class="scene"><b>Scene 1 - Hook (0-8s)</b><p>Kebun kopi Cengkudu 800 MDPL, Banyumas. Close-up biji kopi.</p><button onclick="tanyaScene(1)">Generate Scene 1</button></div>
+<div class="scene"><b>Scene 2 - Cerita (8-30s)</b><p>Petani panen, proses jemur, dan cerita 122 petani.</p><button onclick="tanyaScene(2)">Generate Scene 2</button></div>
+<div class="scene"><b>Scene 3 - Closing (30-53s)</b><p>Cangkir kopi + ajakan: Pulang ke Masa Depan.</p><button onclick="tanyaScene(3)">Generate Scene 3</button></div>
 </div>
+
 <script>
-function kirim(){
-var v=document.getElementById('in').value; if(!v) return;
-var d=document.createElement('div'); d.className='bubble me'; d.innerHTML='<b>'+v+'</b>';
-document.querySelector('.input-row').before(d);
-document.getElementById('in').value='';
+let history = [{role:"system",content:"Kamu adalah CENGKUDU OS, AI assistant dari Cengkudu, Banyumas. Jawab apa aja dengan gaya santai, jelas, bahasa Indonesia. Bisa jawab di luar topik video dan kopi juga. Kalo ditanya video, bantu bikin struktur scene."}];
+
+function addBubble(text, me){
+  var d=document.createElement('div');
+  d.className = me ? 'bubble me' : 'bubble ai';
+  d.innerHTML = me ? '<b>'+text+'</b>' : text;
+  document.getElementById('chat').appendChild(d);
+  d.scrollIntoView({behavior:'smooth',block:'nearest'});
+  return d;
+}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function kirim(){
+  var inp=document.getElementById('in');
+  var v=inp.value.trim(); if(!v) return;
+  inp.value='';
+  addBubble(escapeHtml(v), true);
+  history.push({role:"user",content:v});
+  var btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='...';
+  var loading=addBubble('Lagi mikir...', false);
+  try{
+    var res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:v,messages:history})});
+    var data=await res.json().catch(()=>({}));
+    var reply = data.reply || data.text || data.answer || data.message || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || "";
+    if(!reply) throw new Error('empty');
+    loading.innerHTML=escapeHtml(reply);
+    history.push({role:"assistant",content:reply});
+    document.getElementById('status').textContent='● Online - Nyambung ke api/chat';
+  }catch(e){
+    document.getElementById('status').textContent='● Offline - API belum respon, mode darurat aktif';
+    var fallback="Oke, gue tangkep: '"+v+"'. Versi offline gue masih terbatas. Coba tanya lagi soal video, kopi Cengkudu, atau ide konten, nanti gue bantu strukturin. Kalo mau AI full, cek api/chat di Vercel udah jalan apa belum.";
+    if(v.toLowerCase().includes('pantun')) fallback="Jalan-jalan ke Banyumas,\nMampir ngopi di Cengkudu.\nKalo capek jangan cemas,\nNgopi dulu biar rindu.";
+    if(v.toLowerCase().includes('jepang')||v.toLowerCase().includes('ibukota')) fallback="Ibukota Jepang itu Tokyo. Mau gue bikinin video pitch tentang Tokyo juga?";
+    loading.innerHTML=escapeHtml(fallback);
+  }
+  btn.disabled=false; btn.textContent='Kirim';
+}
+function tanyaScene(n){
+  document.getElementById('in').value='Buatin detail script Scene '+n+' untuk video pitch kopi Cengkudu';
+  kirim();
 }
 </script>
 </body>
