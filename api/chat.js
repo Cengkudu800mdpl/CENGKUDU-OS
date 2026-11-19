@@ -9,18 +9,19 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
       body: JSON.stringify({
         model: 'muse-spark-1.3',
-        max_tokens: 800,
+        max_tokens: 2000,
         temperature: 0.7,
         messages: [
-          { role: 'system', content: 'Kamu asisten CENGKUDU OS. Jawab singkat, bahasa Indonesia santai. Bantu bikin ide video pitch kopi Cengkudu. Format: 1. Hook, 2. Masalah & Solusi, 3. Closing + CTA. Maksimal 150 kata.' },
+          { role: 'system', content: 'Kamu asisten CENGKUDU OS. Jawab bahasa Indonesia santai. Bantu bikin ide video pitch kopi Cengkudu. Format: Hook, Masalah & Solusi, Closing.' },
           { role: 'user', content: message || 'Halo' }
         ]
       })
     });
     const data = await r.json();
-    const reply = data?.choices?.[0]?.message?.content;
+    const c = data?.choices?.[0];
+    const reply = c?.message?.content || c?.text || c?.delta?.content || data?.output_text || data?.output?.[0]?.content?.[0]?.text;
     if (reply) return res.status(200).json({ reply });
-    return res.status(200).json({ reply: 'Muse udah nyambung tapi jawabannya kepotong. Coba tanya lagi dengan kalimat lebih pendek ya, Komandan.' });
+    return res.status(200).json({ reply: 'DEBUG DARI MUSE: ' + JSON.stringify(data).slice(0, 800) });
   } catch (e) {
     return res.status(500).json({ error: 'Gagal manggil Muse API: ' + e.message });
   }
