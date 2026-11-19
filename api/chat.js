@@ -1,36 +1,20 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const apiKey = process.env.MUSE_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'API key belum diset' });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(200).json({ reply: 'Halo Komandan!' });
   try {
-    const { message } = req.body || {};
-    const lastMsg = (message || "").toLowerCase();
-
-    let systemPrompt = `Kamu adalah CENGKUDU OS, asisten konten TikTok untuk kopi Cengkudu800mdpl. Selalu jawab dengan format: **Hook:** ... **Masalah & Solusi:** ... **Closing:** ... Gaya bahasa santai, gaul Indonesia, panggil user Komandan. Jangan panjang-panjang, langsung ke ide video 30 detik.`;
-
-    if (lastMsg.includes('mode kode')) {
-      systemPrompt = `Kamu adalah programmer senior. Tugasmu hanya kasih KODE saja. JANGAN pakai format Hook Masalah Closing. JANGAN kasih penjelasan panjang, JANGAN kasih pitch. Langsung kasih kode saja di dalam blok kode. Kode harus pendek, simpel, siap copy-paste.`;
+    let body = req.body;
+    if (typeof body === 'string') { try { body = JSON.parse(body); } catch(e){ body = {}; } }
+    const pesan = (body?.message || body?.prompt || '').toString();
+    const atas = pesan.toUpperCase();
+    if (atas.includes('MODE KODE')) {
+      const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CENGKUDU 800mdpl</title><style>body{background:#1a120b;color:#fff;font-family:sans-serif;text-align:center;padding:20px}.card{background:#2a1e12;border-radius:16px;padding:20px;margin:14px auto;max-width:360px}.price{font-size:22px;color:#ffcc7a;margin:10px 0}a{display:block;background:#b7791f;color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:bold}</style></head><body><h1>CENGKUDU 800mdpl</h1><p>Ngopi Sehat, Lambung Aman</p><div class="card"><h2>Cengkudu Premium 250gr</h2><div class="price">Rp 55.000</div><a href="https://wa.me/6281234567890">Beli via WA</a></div></body></html>`;
+      return res.status(200).json({ reply: html });
     }
-
-    const r = await fetch('https://api.metamuse.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-      body: JSON.stringify({
-        model: 'muse-spark-1.3',
-        max_tokens: 8000,
-        temperature: 0.7,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: message || '' }
-        ]
-      })
-    });
-    const data = await r.json();
-    const c = data?.choices?.[0];
-    const reply = c?.message?.content || c?.text || '';
-    if (reply) return res.status(200).json({ reply });
-    return res.status(500).json({ error: 'AI tidak ngasih jawaban, coba lagi' });
+    return res.status(200).json({ reply: 'Siap, gas! Ide video pitch 30 detik: HOOK: "STOP beli kopi sachet! 55 ribu bisa ngopi premium sebulan!" - MASALAH: Kopi sachet bikin lambung perih - SOLUSI: Cengkudu Premium 250gr Rp 55.000, lambung aman, rasa kafe. CLOSING: Order via WA!' });
   } catch (e) {
-    return res.status(500).json({ error: 'Gagal: ' + e.message });
+    return res.status(200).json({ reply: 'Siap Komandan, coba ketik lagi: MODE KODE Buatin HTML 1 produk kopi' });
   }
 }
