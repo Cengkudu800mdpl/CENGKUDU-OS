@@ -1,55 +1,34 @@
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
-    const body = req.body || {};
-    const messages = body.messages || [];
-    const lastMessage = messages[messages.length - 1];
-    const userText = lastMessage ? lastMessage.content : "";
-
-    if (!userText) {
-      return res.status(400).json({ error: "Pesan kosong" });
-    }
-
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({ error: "API key tidak ada di Vercel" });
-    }
-
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    const msg = (body.message || '').toString();
+    if (!msg) return res.status(200).json({ reply: 'Pesan kosong.' });
+    if (!process.env.GROQ_API_KEY) return res.status(200).json({ reply: 'ERROR: GROQ_API_KEY belum disetting di Vercel.' });
+    const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01"
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "claude-3-5-sonnet-20241022",
-        max_tokens: 1000,
-        system: "Kamu adalah Muse, asisten AI Cengkudu OS. Jawab dengan bahasa yang sama seperti bahasa user.",
-        messages: messages
+        model: "openai/gpt-oss-20b",
+        messages: [
+          { role: "system", content: "Kamu adalah Muse, asisten AI CENGKUDU OS. Jawab dengan bahasa Indonesia santai, singkat, dan membantu." },
+          { role: "user", content: msg }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000
       })
     });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(500).json({ error: data.error ? data.error.message : "API error" });
-    }
-
-    const reply = data.content && data.content[0] ? data.content[0].text : "Maaf, tidak ada jawaban.";
-    return res.status(200).json({ reply: reply });
-  } catch (err) {
-    return res.status(500).json({ error: "Server error: " + err.message });
+    const data = await r.json();
+    if (!r.ok) return res.status(200).json({ reply: `ERROR GROQ: ${data.error?.message || 'Gagal panggil Groq'}` });
+    return res.status(200).json({ reply: data.choices?.[0]?.message?.content || 'Maaf, tidak ada jawaban.' });
+  } catch (e) {
+    return res.status(200).json({ reply: `ERROR: ${e.message}` });
   }
 }
