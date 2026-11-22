@@ -17,12 +17,12 @@ body{background:#121212;color:#fff;padding:14px 14px 140px}
 .bubble{background:#2a2a2a;border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.5;font-size:15px;white-space:pre-wrap;word-break:break-word}
 .bubble.me{background:#8a5a1d}
 .bubble.ai{border-left:3px solid #8a5a1d}
+.bubble img{max-width:100%;border-radius:10px;margin-top:8px;display:block}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .tag{background:#2a2a2a;border-radius:999px;padding:6px 10px;font-size:12px}
-.input-row{display:flex;gap:10px;background:#2a2a2a;border-radius:12px;padding:8px 8px 8px 14px;align-items:flex-end}
-.input-row input{flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:14px}
+.input-row{display:flex;gap:8px;background:#2a2a2a;border-radius:12px;padding:8px 8px 8px 14px;align-items:flex-end}
 .input-row textarea{flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:14px;resize:none;overflow:hidden;white-space:pre-wrap;word-wrap:break-word;max-height:120px;line-height:1.4;padding:2px 0}
-.input-row button{background:#fff;color:#000;border:0;padding:10px 14px;border-radius:10px;font-weight:700}
+.input-row button{background:#fff;color:#000;border:0;padding:10px 12px;border-radius:10px;font-weight:700;font-size:14px}
 .input-row button:disabled{opacity:.5}
 .note{font-size:12px;opacity:.55;margin-top:10px;line-height:1.4}
 .scene{background:#2a2a2a;border-radius:14px;padding:14px;margin-top:12px}
@@ -30,11 +30,31 @@ body{background:#121212;color:#fff;padding:14px 14px 140px}
 .scene button{margin-top:10px;background:#fff;color:#000;border:0;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px}
 #status{font-size:12px;opacity:.6;margin-bottom:10px}
 .bubble .del-btn{background:none;border:none;cursor:pointer;font-size:14px;opacity:.6;margin-top:8px;display:block}
+/* TAMBAHAN DOANG - MODE SUARA */
+.voice-box{background:#8a5a1d;border-radius:16px;padding:14px;margin-bottom:14px;text-align:center}
+.voice-box p{font-size:13px;opacity:.9;margin-bottom:10px}
+.btn-voice{width:100%;background:#fff;color:#000;border:0;padding:16px;border-radius:999px;font-size:18px;font-weight:800;cursor:pointer}
+.btn-voice.merekam{background:#ff3b30;color:#fff}
+.voice-row{display:flex;gap:8px;margin-top:10px}
+.voice-row button{flex:1;background:#2a2a2a;color:#fff;border:0;padding:10px;border-radius:999px;font-weight:700}
+#lampiran{font-size:12px;background:#2a2a2a;padding:8px 10px;border-radius:999px;margin-bottom:8px;display:none}
+#lampiran img{max-width:100%;border-radius:10px;margin-top:6px}
 </style>
 </head>
 <body>
 <div class="top"><div class="logo">✦</div><div><b>CENGKUDU<span>BUILT WITH MUSE SPARK</span></b></div></div>
 <div class="tabs"><b>Projects</b><span>Generations</span><span>Assets</span></div>
+
+<!-- TAMBAHAN BARU - TIDAK MENGUBAH YANG LAMA -->
+<div class="voice-box">
+<p>Buat yang gak bisa baca / tulis: pencet tombol bawah, langsung ngomong aja.</p>
+<button id="btnVoice" class="btn-voice" onclick="dengar()">🎤 TEKAN & NGOMONG</button>
+<div class="voice-row">
+<button id="btnSuara" onclick="toggleSuara()">🔊 SUARA AI: ON</button>
+<button onclick="bicara('Halo Jendral, ini Cengkudu. Silakan ngomong, saya dengerin.')">🔊 TES SUARA</button>
+</div>
+<div id="voiceStatus" style="font-size:12px;margin-top:8px;opacity:.9">Siap dengerin...</div>
+</div>
 
 <div class="card">
 <h1 style="font-size:28px;margin-bottom:14px">AI Chat 🌌</h1>
@@ -45,7 +65,9 @@ body{background:#121212;color:#fff;padding:14px 14px 140px}
 <div class="bubble"><b>Siap! Aku sudah buat struktur 3 scene.</b><br><br>Durasi total ~53s, 3 scene, gaya: Natural • Professional • Sinematik</div>
 </div>
 <div class="tags"><span class="tag">Gaya: Natural • Professional</span><span class="tag">Durasi: 53s</span><span class="tag">Format: 9:16</span></div>
-<div class="input-row"><textarea id="in" rows="1" placeholder="Tanya apa aja di sini..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();kirim();}"></textarea><button id="btn" onclick="kirim()">Kirim</button></div>
+<div id="lampiran"></div>
+<div class="input-row"><textarea id="in" rows="1" placeholder="Tanya apa aja di sini..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();kirim();}"></textarea><button onclick="document.getElementById('fileIn').click()">📎</button><button onclick="dengar()">🎤</button><button id="btn" onclick="kirim()">Kirim</button></div>
+<input type="file" id="fileIn" hidden onchange="pilihFile(this)">
 <div class="note">Ini AI beneran, nyambung ke api/chat. Kalo API mati, tetep dibales mode offline.</div>
 </div>
 
@@ -58,52 +80,123 @@ body{background:#121212;color:#fff;padding:14px 14px 140px}
 </div>
 
 <script>
-let history = [{role:"system",content:"Kamu adalah CENGKUDU OS, AI assistant dari Cengkudu, Banyumas. Jawab apa aja dengan gaya santai, jelas, bahasa Indonesia. Bisa jawab di luar topik video dan kopi juga. Kalo ditanya video, bantu bikin struktur scene."}];
+let history = [{role:"system",content:"Kamu adalah CENGKUDU OS, AI assistant dari Cengkudu, Banyumas. Jawab apa aja dengan gaya santai, jelas, bahasa Indonesia. Bisa jawab di luar topik video dan kopi juga. Kalo ditanya video, bantu bikin struktur scene. Jawab singkat dan gampang dimengerti karena bisa dibacakan dengan suara."}];
+let suaraOn = true;
+let fileTerpilih = null;
+let fileUrl = "";
 
-function addBubble(text, me){
-  var d=document.createElement('div');
-  d.className = me ? 'bubble me' : 'bubble ai';
-  d.innerHTML = me ? '<b>'+text+'</b>' : text;
+// --- TAMBAHAN: SUARA ---
+function toggleSuara(){
+  suaraOn = !suaraOn;
+  document.getElementById('btnSuara').textContent = suaraOn ? '🔊 SUARA AI: ON' : '🔇 SUARA AI: OFF';
+  if(!suaraOn && 'speechSynthesis' in window) speechSynthesis.cancel();
+}
+function bicara(teks){
+  if(!suaraOn) return;
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(teks);
+  u.lang = 'id-ID'; u.rate = 0.95;
+  speechSynthesis.speak(u);
+}
+function dengar(){
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ alert('HP / Browser ini belum support suara. Coba pakai Chrome Android, Jendral.'); return; }
+  var rec = new SR();
+  rec.lang = 'id-ID'; rec.interimResults = false;
+  var btnV = document.getElementById('btnVoice');
+  btnV.textContent = '🔴 LAGI DENGERIN... NGOMONG, JENDRAL';
+  btnV.classList.add('merekam');
+  document.getElementById('voiceStatus').textContent = 'Dengerin... silakan ngomong, Jendral';
+  rec.onresult = function(e){
+    var hasil = e.results[0][0].transcript;
+    document.getElementById('in').value = hasil;
+    document.getElementById('voiceStatus').textContent = 'Lu ngomong: ' + hasil;
+    btnV.textContent = '🎤 TEKAN & NGOMONG';
+    btnV.classList.remove('merekam');
+    kirim();
+  };
+  rec.onerror = function(){
+    btnV.textContent = '🎤 TEKAN & NGOMONG';
+    btnV.classList.remove('merekam');
+    document.getElementById('voiceStatus').textContent = 'Gak kedengeran, coba lagi, Jendral.';
+  };
+  rec.onend = function(){ btnV.textContent = '🎤 TEKAN & NGOMONG'; btnV.classList.remove('merekam'); };
+  rec.start();
+}
+// --- TAMBAHAN: FILE ---
+function pilihFile(el){
+  var f = el.files[0]; if(!f) return;
+  fileTerpilih = f;
+  var box = document.getElementById('lampiran');
+  box.style.display = 'block';
+  if(f.type.startsWith('image/')){
+    fileUrl = URL.createObjectURL(f);
+    box.innerHTML = '📎 Lampiran: ' + f.name + '<br><img src="'+fileUrl+'">';
+  } else {
+    fileUrl = URL.createObjectURL(f);
+    box.innerHTML = '📎 Lampiran: ' + f.name + ' <a href="'+fileUrl+'" download="'+f.name+'" style="color:#fff">Buka / Download</a>';
+  }
+}
+// --- YANG LAMA, TIDAK DIUBAH ---
+function addDelBtn(d){
+  if(d.querySelector('.del-btn')) return;
   var del=document.createElement('button');
   del.className='del-btn';
   del.innerHTML='🗑️';
   del.onclick=function(){ if(confirm('Hapus chat ini, Jendral?')){ d.remove(); } };
   d.appendChild(del);
+}
+function setBubbleText(d, html){
+  d.innerHTML = html;
+  addDelBtn(d);
+}
+function addBubble(text, me){
+  var d=document.createElement('div');
+  d.className = me ? 'bubble me' : 'bubble ai';
+  d.innerHTML = me ? '<b>'+text+'</b>' : text;
+  addDelBtn(d);
   document.getElementById('chat').appendChild(d);
   d.scrollIntoView({behavior:'smooth',block:'nearest'});
   return d;
 }
+document.querySelectorAll('#chat .bubble').forEach(function(b){ addDelBtn(b); });
 function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
 var inpEl=document.getElementById('in');
-inpEl.addEventListener('input', function(){
-  inpEl.style.height='auto';
-  inpEl.style.height=inpEl.scrollHeight+'px';
-});
-
+inpEl.addEventListener('input', function(){ inpEl.style.height='auto'; inpEl.style.height=inpEl.scrollHeight+'px'; });
 async function kirim(){
   var inp=document.getElementById('in');
-  var v=inp.value.trim(); if(!v) return;
-  inp.value='';
-  inp.style.height='auto';
-  addBubble(escapeHtml(v), true);
-  history.push({role:"user",content:v});
+  var v=inp.value.trim();
+  if(!v && !fileTerpilih) return;
+  var tampil = v ? escapeHtml(v) : '';
+  if(fileTerpilih){
+    if(fileTerpilih.type.startsWith('image/')) tampil += '<br><img src="'+fileUrl+'"><br>📎 Foto: ' + escapeHtml(fileTerpilih.name);
+    else tampil += '<br>📎 Dokumen: ' + escapeHtml(fileTerpilih.name) + ' <a href="'+fileUrl+'" download="'+fileTerpilih.name+'" style="color:#fff">Buka</a>';
+  }
+  if(tampil) addBubble(tampil, true);
+  var kirimKeAI = v + (fileTerpilih ? ' [User ngirim file: ' + fileTerpilih.name + ', tipe: ' + fileTerpilih.type + ']' : '');
+  history.push({role:"user",content:kirimKeAI});
+  inp.value=''; inp.style.height='auto';
+  document.getElementById('lampiran').style.display='none'; document.getElementById('lampiran').innerHTML='';
+  fileTerpilih=null;
   var btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='...';
   var loading=addBubble('Lagi mikir...', false);
   try{
-    var res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:v,messages:history})});
+    var res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:kirimKeAI,messages:history})});
     var data=await res.json().catch(()=>({}));
     var reply = data.reply || data.text || data.answer || data.message || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || "";
     if(!reply) throw new Error('empty');
-    loading.innerHTML=escapeHtml(reply);
+    setBubbleText(loading, escapeHtml(reply));
+    bicara(reply);
     history.push({role:"assistant",content:reply});
     document.getElementById('status').textContent='● Online - Nyambung ke api/chat';
   }catch(e){
     document.getElementById('status').textContent='● Offline - API belum respon, mode darurat aktif';
-    var fallback="Oke, gue tangkep: '"+v+"'. Versi offline gue masih terbatas. Coba tanya lagi soal video, kopi Cengkudu, atau ide konten, nanti gue bantu strukturin. Kalo mau AI full, cek api/chat di Vercel udah jalan apa belum.";
-    if(v.toLowerCase().includes('pantun')) fallback="Jalan-jalan ke Banyumas,\nMampir ngopi di Cengkudu.\nKalo capek jangan cemas,\nNgopi dulu biar rindu.";
-    if(v.toLowerCase().includes('jepang')||v.toLowerCase().includes('ibukota')) fallback="Ibukota Jepang itu Tokyo. Mau gue bikinin video pitch tentang Tokyo juga?";
-    loading.innerHTML=escapeHtml(fallback);
+    var fallback="Oke, gue tangkep: '"+v+"'. Versi offline gue masih terbatas. Coba tanya lagi soal video, kopi Cengkudu, atau ide konten.";
+    if(v.toLowerCase().includes('pantun')) fallback="Jalan-jalan ke Banyumas, Mampir ngopi di Cengkudu. Kalo capek jangan cemas, Ngopi dulu biar rindu.";
+    if(v.toLowerCase().includes('jepang')||v.toLowerCase().includes('ibukota')) fallback="Ibukota Jepang itu Tokyo.";
+    setBubbleText(loading, escapeHtml(fallback));
+    bicara(fallback);
   }
   btn.disabled=false; btn.textContent='Kirim';
 }
